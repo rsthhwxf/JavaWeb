@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org">
 
-</body>
-</html>
+<script th:inline="javascript" type="text/javascript">
+    const ctx = [[${#httpServletRequest.getContextPath()}]];
+</script>
