@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>管理员后台</title>
+    <link rel="stylesheet" th:href="@{/css/pintuer.css}">
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+    <script th:src="@{/js/jquery.js}"></script>
+    <script th:src="@{/js/pintuer.js}"></script>
+</head>
+<body>
+<div class="panel admin-panel">
+    <div class="padding border-bottom">
+        <ul class="search" style="padding-left: 10px;">
+            <li>
+                <a class="button border-main icon-plus-square-o" th:href="@{/itemCategory/add}">新增类目</a>
+            </li>
+        </ul>
+    </div>
+    <table class="table table-hover text-center">
+        <tr>
+            <th>ID</th>
+            <th>类别名称</th>
+            <th>操作</th>
+        </tr>
+        <tr th:each="data:${list}">
+            <td th:text="${data.id}"></td>
+            <td th:text="${data.name}"></td>
+            <td>
+                <div class="button-group">
+                    <a class="button border-main" th:href="@{/itemCategory/listCategory2(pid=${data.id})}"><span class="icon-edit">查看二级分类</span> </a>
+                    <a class="button border-main" th:href="@{/itemCategory/update1(id=${data.id})}"><span class="icon-edit">修改</span> </a>
+                    <a class="button border-red" th:href="@{/itemCategory/delete1(id=${data.id})}"><span class="icon-trash-o">删除</span> </a>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="8">
+                <div class="pagelist">
+                    <!--显示分页信息-->
+                    <div class="modal-footer no-margin-top">
+                        <div class="col-md-6">
+                            当前第 [[${pageInfo.pageNum}]]页,共 [[${pageInfo.pages}]] 页.一共 [[${pageInfo.total}]] 条记录
+                        </div>
+
+                        <ul class="pagination pull-right no-margin">
+                            <li th:if="${pageInfo.hasPreviousPage}">
+                                <a th:href="'/itemCategory/listCategory1?pageNum=1'">首页</a>
+                            </li>
+
+                            <li class="prev" th:if="${pageInfo.hasPreviousPage}">
+                                <a th:href="'/itemCategory/listCategory1?pageNum='+${pageInfo.prePage}">
+                                    <i class="ace-icon fa fa-angle-double-left"></i>
+                                </a>
+                            </li>
+                            <!--遍历条数-->
+                            <li th:each="nav:${pageInfo.navigatepageNums}">
+                                <a th:href="'/itemCategory/listCategory1?pageNum='+${nav}" th:text="${nav}" th:if="${nav != pageInfo.pageNum}"></a>
+                                <span style="font-weight: bold;background: #6faed9;" th:if="${nav == pageInfo.pageNum}" th:text="${nav}" ></span>
+                            </li>
+
+                            <li class="next" th:if="${pageInfo.hasNextPage}">
+                                <a th:href="'/itemCategory/listCategory1?pageNum='+${pageInfo.nextPage}">
+                                    <i class="ace-icon fa fa-angle-double-right"></i>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a th:href="'/itemCategory/listCategory1?pageNum='+${pageInfo.pages}">尾页</a>
+                            </li>
+                        </ul>
+                    </div>
+
+
+
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
