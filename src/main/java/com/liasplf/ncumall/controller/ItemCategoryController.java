@@ -23,7 +23,7 @@ public class ItemCategoryController {
     @RequestMapping("/listCategory1")
     public String listCategory1(Model model,
                              @RequestParam(required = false,defaultValue="1",value="pageNum")Integer pageNum,
-                             @RequestParam(defaultValue="5",value="pageSize")Integer pageSize){
+                             @RequestParam(defaultValue="10",value="pageSize")Integer pageSize){
 
         //为了程序的严谨性，判断非空：
         if(pageNum == null){
@@ -33,7 +33,7 @@ public class ItemCategoryController {
             pageNum = 1;
         }
         if(pageSize == null){
-            pageSize = 5;    //设置默认每页显示的数据数
+            pageSize = 10;    //设置默认每页显示的数据数
         }
         System.out.println("当前页是："+pageNum+"显示条数是："+pageSize);
 
@@ -61,7 +61,7 @@ public class ItemCategoryController {
     }
 
     @RequestMapping("/catAdd")
-    public String exAdd(String name){
+    public String catAdd(String name){
         ItemCategory category = new ItemCategory();
         category.setIsDelete(0);
         category.setPid(0);
@@ -73,7 +73,19 @@ public class ItemCategoryController {
     @RequestMapping("/update1")
     public String update1(Integer id,Model model){
         ItemCategory category = itemCategoryService.getById(id);
-        model.addAttribute("obj",category);
+        model.addAttribute("cate",category);
         return "itemCategory/update";
+    }
+
+    @RequestMapping("/catUpdate")
+    public String catUpdate(ItemCategory category){
+
+        itemCategoryService.updateById(category);
+        return "redirect:/itemCategory/listCategory1";
+    }
+    @RequestMapping("/delete1")
+    public String update1(Integer id){
+        itemCategoryService.removeById(id);
+        return "redirect:/itemCategory/listCategory1";
     }
 }
