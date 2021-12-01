@@ -27,4 +27,9 @@ public class ItemCategoryServiceImpl extends ServiceImpl<ItemCategoryDao, ItemCa
         return mapper.selectList(new QueryWrapper<ItemCategory>().eq("pid",0));
     }
 
+    @Override
+    public List<ItemCategory> getAll2(Integer pid) {
+        return mapper.selectList(new QueryWrapper<ItemCategory>().eq("pid",pid));
+    }
+
 }

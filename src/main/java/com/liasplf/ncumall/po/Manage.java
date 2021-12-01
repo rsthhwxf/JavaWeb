@@ -1,5 +1,6 @@
 package com.liasplf.ncumall.po;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
@@ -12,7 +13,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Manage implements Serializable {
-    @TableId
+    @TableId(value="id",type= IdType.AUTO)
     private Integer id;
     @TableField("userName")
     private String userName;
