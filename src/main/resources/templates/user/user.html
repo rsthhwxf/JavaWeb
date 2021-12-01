@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>管理员后台</title>
+    <link rel="stylesheet" th:href="@{/css/pintuer.css}">
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+    <script th:src="@{/js/jquery.js}"></script>
+    <script th:src="@{/js/pintuer.js}"></script>
+</head>
+<body>
+<div class="panel admin-panel">
+    <form th:action="@{/user/listUser}" id="listform" method="post">
+        <div class="padding border-bottom">
+            <ul class="search" style="padding-left: 10px;">
+                <li>
+                    <input type="text" placeholder="请输入用户名" name="userName" class="input"
+                           style="width: 250px;line-height: 17px;display: inline-block" />
+                    <a href="javascript:void(0)" onclick="changeSearch()" class="button border-main icon-search">搜索</a>
+                </li>
+            </ul>
+        </div>
+    </form>
+    <table class="table table-hover text-center">
+        <tr>
+            <th>用户名</th>
+            <th>手机号</th>
+            <th>真实姓名</th>
+            <th>性别</th>
+            <th>邮箱</th>
+            <th>地址</th>
+            <th>会员等级</th>
+        </tr>
+        <tr th:each="data:${list}">
+            <td th:text="${data.userName}"></td>
+            <td th:text="${data.phone}"></td>
+            <td th:text="${data.realName}"></td>
+            <td th:text="${data.sex}"></td>
+            <td th:text="${data.email}"></td>
+            <td th:text="${data.address}"></td>
+            <td th:text="${data.status}"></td>
+        </tr>
+
+        <tr>
+            <td colspan="8">
+                <div class="pagelist">
+                    <!--显示分页信息-->
+                    <div class="modal-footer no-margin-top">
+                        <div class="col-md-6">
+                            当前第 [[${pageInfo.pageNum}]]页,共 [[${pageInfo.pages}]] 页.一共 [[${pageInfo.total}]] 条记录
+                        </div>
+
+                        <ul class="pagination pull-right no-margin">
+                            <li th:if="${pageInfo.hasPreviousPage}">
+                                <a th:href="'/user/listUser?pageNum=1'">首页</a>
+                            </li>
+
+                            <li class="prev" th:if="${pageInfo.hasPreviousPage}">
+                                <a th:href="'/user/listUser?pageNum='+${pageInfo.prePage}">
+                                    <i class="ace-icon fa fa-angle-double-left"></i>
+                                </a>
+                            </li>
+                            <!--遍历条数-->
+                            <li th:each="nav:${pageInfo.navigatepageNums}">
+                                <a th:href="'/user/listUser?pageNum='+${nav}" th:text="${nav}" th:if="${nav != pageInfo.pageNum}"></a>
+                                <span style="font-weight: bold;background: #6faed9;" th:if="${nav == pageInfo.pageNum}" th:text="${nav}" ></span>
+                            </li>
+
+                            <li class="next" th:if="${pageInfo.hasNextPage}">
+                                <a th:href="'/user/listUser?pageNum='+${pageInfo.nextPage}">
+                                    <i class="ace-icon fa fa-angle-double-right"></i>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a th:href="'/user/listUser?pageNum='+${pageInfo.pages}">尾页</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+<script>
+    function changeSearch(){
+        $("#listform").submit();
+    }
+</script>
+</body>
+
+</html>
