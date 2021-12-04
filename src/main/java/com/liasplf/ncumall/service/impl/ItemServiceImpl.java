@@ -24,10 +24,10 @@ public class ItemServiceImpl extends ServiceImpl<ItemDao, Item> implements ItemS
     public List<Item> getAll(Integer status, Integer id) {
         List<Item> list;
         if (status==0){
-            list=this.getBaseMapper().selectList(null);
+            list=this.getBaseMapper().selectList(new QueryWrapper<Item>().eq("isDelete",0));
             System.out.println(list);
         }else{
-            list=this.getBaseMapper().selectList(new QueryWrapper<Item>().eq("manage_id",id));
+            list=this.getBaseMapper().selectList(new QueryWrapper<Item>().eq("manage_id",id).eq("isDelete",0));
         }
 
         List<ItemCategory> itemCategories = itemCategoryDao.selectList(null);

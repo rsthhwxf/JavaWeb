@@ -21,17 +21,18 @@ public class ItemCategoryServiceImpl extends ServiceImpl<ItemCategoryDao, ItemCa
     @Autowired
     private ItemCategoryDao mapper;
 
-
+    //获取一级分类
     @Override
     public List<ItemCategory> getAll() {
         return mapper.selectList(new QueryWrapper<ItemCategory>().eq("pid",0));
     }
 
+    //获取指定pid下的所有二级分类
     @Override
     public List<ItemCategory> getAll2(Integer pid) {
         return mapper.selectList(new QueryWrapper<ItemCategory>().eq("pid",pid));
     }
-
+    //获取所有二级分类
     @Override
     public List<ItemCategory> getAllCategory2() {
         return mapper.selectList(new QueryWrapper<ItemCategory>().eq("isDelete",0).ne("pid",0));
