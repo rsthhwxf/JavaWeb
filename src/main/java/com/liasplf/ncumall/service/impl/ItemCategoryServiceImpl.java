@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.liasplf.ncumall.dao.ItemCategoryDao;
+import com.liasplf.ncumall.po.Item;
 import com.liasplf.ncumall.po.ItemCategory;
 import com.liasplf.ncumall.service.ItemCategoryService;
 
@@ -21,7 +22,6 @@ public class ItemCategoryServiceImpl extends ServiceImpl<ItemCategoryDao, ItemCa
     private ItemCategoryDao mapper;
 
 
-
     @Override
     public List<ItemCategory> getAll() {
         return mapper.selectList(new QueryWrapper<ItemCategory>().eq("pid",0));
@@ -30,6 +30,11 @@ public class ItemCategoryServiceImpl extends ServiceImpl<ItemCategoryDao, ItemCa
     @Override
     public List<ItemCategory> getAll2(Integer pid) {
         return mapper.selectList(new QueryWrapper<ItemCategory>().eq("pid",pid));
+    }
+
+    @Override
+    public List<ItemCategory> getAllCategory2() {
+        return mapper.selectList(new QueryWrapper<ItemCategory>().eq("isDelete",0).ne("pid",0));
     }
 
 }

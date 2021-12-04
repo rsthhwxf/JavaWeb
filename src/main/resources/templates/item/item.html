@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>管理员后台</title>
+    <link rel="stylesheet" th:href="@{/css/pintuer.css}">
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+    <script th:src="@{/js/jquery.js}"></script>
+    <script th:src="@{/js/pintuer.js}"></script>
+</head>
+<body>
+<div class="panel admin-panel">
+    <form th:action="@{/item/listItem}" id="listform" method="post">
+        <div class="padding border-bottom">
+            <ul class="search" style="padding-left: 10px;">
+                <li>
+                    <a class="button border-main icon-plus-square-o" th:href="@{/item/add}">添加商品</a>
+                </li>
+                <li>
+                    <input type="text" placeholder="请输入商品名称" name="itemName" class="input"
+                           style="width: 250px;line-height: 17px;display: inline-block" />
+                    <a href="javascript:void(0)" onclick="changeSearch()" class="button border-main icon-search">搜索</a>
+                </li>
+            </ul>
+        </div>
+    </form>
+    <table class="table table-hover text-center">
+        <tr>
+            <th>商品名称</th>
+            <th>商品主图</th>
+            <th>商品价格</th>
+            <th>商品一级分类</th>
+            <th>商品二级分类</th>
+            <th>操作</th>
+        </tr>
+        <tr th:each="data:${list}">
+            <td th:text="${data.name}"></td>
+            <td><img th:src="${data.url1}" alt="" style="width: 100px;height: 100px;"></td>
+            <td th:text="${data.price}"></td>
+            <td th:text="${data.yiji.name}"></td>
+            <td th:text="${data.erji.name}"></td>
+            <td>
+                <a class="button border-main" th:href="@{/item/update(id=${data.id})}"><span class="icon-edit">修改</span> </a>
+                <a class="button border-red" th:href="@{/item/delete(id=${data.id})}"><span class="icon-trash-o">下架</span> </a>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="8">
+                <div class="pagelist">
+                    <!--显示分页信息-->
+                    <div class="modal-footer no-margin-top">
+                        <div class="col-md-6">
+                            当前第 [[${pageInfo.pageNum}]]页,共 [[${pageInfo.pages}]] 页.一共 [[${pageInfo.total}]] 条记录
+                        </div>
+
+                        <ul class="pagination pull-right no-margin">
+                            <li th:if="${pageInfo.hasPreviousPage}">
+                                <a th:href="'/item/listItem?pageNum=1'">首页</a>
+                            </li>
+
+                            <li class="prev" th:if="${pageInfo.hasPreviousPage}">
+                                <a th:href="'/item/listItem?pageNum='+${pageInfo.prePage}">
+                                    <i class="ace-icon fa fa-angle-double-left"></i>
+                                </a>
+                            </li>
+                            <!--遍历条数-->
+                            <li th:each="nav:${pageInfo.navigatepageNums}">
+                                <a th:href="'/item/listItem?pageNum='+${nav}" th:text="${nav}" th:if="${nav != pageInfo.pageNum}"></a>
+                                <span style="font-weight: bold;background: #6faed9;" th:if="${nav == pageInfo.pageNum}" th:text="${nav}" ></span>
+                            </li>
+
+                            <li class="next" th:if="${pageInfo.hasNextPage}">
+                                <a th:href="'/item/listItem?pageNum='+${pageInfo.nextPage}">
+                                    <i class="ace-icon fa fa-angle-double-right"></i>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a th:href="'/item/listItem?pageNum='+${pageInfo.pages}">尾页</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+<script>
+    function changeSearch(){
+        $("#listform").submit();
+    }
+</script>
+</body>
+
+</html>
