@@ -68,4 +68,7 @@ public class User implements Serializable {
 
     @TableField("status")
     private Integer status;
+
+    @TableField("isDelete")
+    private Integer isDelete;
 }

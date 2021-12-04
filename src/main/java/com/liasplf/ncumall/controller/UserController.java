@@ -58,6 +58,27 @@ public class UserController {
         return "user/user";
     }
 
+    @RequestMapping("/delete")
+    public String delete(Integer id){
+        User user = userService.getById(id);
+        user.setIsDelete(1);
+        userService.updateById(user);
+
+        return "redirect:/user/listUser";
+    }
+
+    @RequestMapping("/update")
+    public String update(Model model,Integer id){
+        User user = userService.getById(id);
+        model.addAttribute("user",user);
+        return "user/update";
+    }
+
+    @RequestMapping("/userUpdate")
+    public String userUpdate(User user){
+        userService.updateById(user);
+        return "redirect:/user/listUser";
+    }
 
 
 }

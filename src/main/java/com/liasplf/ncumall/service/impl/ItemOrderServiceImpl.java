@@ -28,7 +28,7 @@ public class ItemOrderServiceImpl extends ServiceImpl<ItemOrderDao,ItemOrder> im
         if(code==null){
             orderList = this.getBaseMapper().selectList(new QueryWrapper<ItemOrder>().eq("manage_id", id));
         }else{
-            orderList = this.getBaseMapper().selectList(new QueryWrapper<ItemOrder>().eq("manage_id", id).eq("code",code));
+            orderList = this.getBaseMapper().selectList(new QueryWrapper<ItemOrder>().eq("manage_id", id).like("code",code));
         }
 
         List<User> users = userDao.selectList(null);

@@ -14,11 +14,11 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
 
     @Override
     public List<User> getAll() {
-        return this.getBaseMapper().selectList(new QueryWrapper<User>());
+        return this.getBaseMapper().selectList(new QueryWrapper<User>().eq("isDelete",0));
     }
 
     @Override
     public List<User> searchUser(String userName) {
-        return this.getBaseMapper().selectList(new QueryWrapper<User>().like("userName",userName));
+        return this.getBaseMapper().selectList(new QueryWrapper<User>().eq("isDelete",0).like("userName",userName));
     }
 }
