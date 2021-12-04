@@ -1,5 +1,7 @@
 package com.liasplf.ncumall.controller;
 
+import com.aliyun.oss.OSS;
+import com.aliyun.oss.model.PutObjectResult;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.liasplf.ncumall.po.Item;
@@ -7,6 +9,7 @@ import com.liasplf.ncumall.po.ItemCategory;
 import com.liasplf.ncumall.po.Manage;
 import com.liasplf.ncumall.service.ItemCategoryService;
 import com.liasplf.ncumall.service.ItemService;
+import com.liasplf.ncumall.utils.Consts;
 import com.liasplf.ncumall.utils.UUIDUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +20,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 @Controller
@@ -27,6 +32,8 @@ public class ItemController {
     private ItemService itemService;
     @Autowired
     private ItemCategoryService itemCategoryService;
+    @Autowired
+    private OSS ossClient;
 
     @RequestMapping("/listItem")
     public String listItem(Model model, HttpServletRequest request,String itemName,
@@ -95,26 +102,24 @@ public class ItemController {
         if(files.length>0) {
             for (int s = 0; s < files.length; s++) {
                 String n = UUIDUtils.create();
-                String rootPath = this.getClass().getResource("/").getPath();
-                String path = rootPath + "\\static\\ueditor\\upload\\" + n + files[s].getOriginalFilename();
+                String path = Consts.OSS_PRE_PATH + n + files[s].getOriginalFilename();
                 System.out.println(path);
-                File newFile = new File(path);
-                files[s].transferTo(newFile);
-
+                InputStream inputStream = files[s].getInputStream();
+                ossClient.putObject("ncumall", n+files[s].getOriginalFilename(), inputStream);
                 if (s == 0) {
-                    item.setUrl1("\\ueditor\\upload\\" + n + files[s].getOriginalFilename());
+                    item.setUrl1(Consts.OSS_PRE_PATH + n + files[s].getOriginalFilename());
                 }
                 if (s == 1) {
-                    item.setUrl2("\\ueditor\\upload\\" + n + files[s].getOriginalFilename());
+                    item.setUrl2(Consts.OSS_PRE_PATH + n + files[s].getOriginalFilename());
                 }
                 if (s == 2) {
-                    item.setUrl3("\\ueditor\\upload\\" + n + files[s].getOriginalFilename());
+                    item.setUrl3(Consts.OSS_PRE_PATH + n + files[s].getOriginalFilename());
                 }
                 if (s == 3) {
-                    item.setUrl4("\\ueditor\\upload\\" + n + files[s].getOriginalFilename());
+                    item.setUrl4(Consts.OSS_PRE_PATH + n + files[s].getOriginalFilename());
                 }
                 if (s == 4) {
-                    item.setUrl5("\\ueditor\\upload\\" + n + files[s].getOriginalFilename());
+                    item.setUrl5(Consts.OSS_PRE_PATH + n + files[s].getOriginalFilename());
                 }
             }
         }

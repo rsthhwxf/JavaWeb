@@ -13,4 +13,6 @@ public class Consts {
 
     /**json返回码名称*/
     public static final String RES = "res";
+
+    public static final String OSS_PRE_PATH="https://ncumall.oss-cn-shenzhen.aliyuncs.com/";
 }
