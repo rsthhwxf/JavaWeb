@@ -20,6 +20,8 @@ public class ItemServiceImpl extends ServiceImpl<ItemDao, Item> implements ItemS
     @Autowired
     private ItemCategoryDao itemCategoryDao;
 
+    //专供管理员和店主查看商品,参数为status状态（管理员，商家）
+    //id为商家id
     @Override
     public List<Item> getAll(Integer status, Integer id) {
         List<Item> list;
@@ -55,4 +57,13 @@ public class ItemServiceImpl extends ServiceImpl<ItemDao, Item> implements ItemS
         }
         return ans;
     }
+
+    @Override
+    public List<Item> getItemByManageId(Integer id) {
+        List<Item> items = this.baseMapper.selectList(new QueryWrapper<Item>().eq("isDelete", 0).eq("manage_id", id));
+
+        return items;
+    }
+
+
 }

@@ -2,7 +2,6 @@ package com.liasplf.ncumall.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.liasplf.ncumall.po.ItemCategory;
 import com.liasplf.ncumall.po.User;
 import com.liasplf.ncumall.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +62,6 @@ public class UserController {
         User user = userService.getById(id);
         user.setIsDelete(1);
         userService.updateById(user);
-
         return "redirect:/user/listUser";
     }
 

@@ -42,6 +42,8 @@ public class ItemController {
 
         Manage manage = (Manage)request.getSession().getAttribute("manage");
         Integer status = manage.getStatus();
+        Integer manageId = manage.getId();
+
 
 
         //为了程序的严谨性，判断非空：
@@ -62,9 +64,9 @@ public class ItemController {
         try {
             List<Item> itemList;
             if(itemName!=null){
-                itemList = itemService.searchItem(itemName,status,manage.getId());
+                itemList = itemService.searchItem(itemName,status,manageId);
             }else{
-                itemList = itemService.getAll(status,manage.getId());
+                itemList = itemService.getAll(status,manageId);
             }
             System.out.println("分页数据："+itemList);
             //3.使用PageInfo包装查询后的结果,5是连续显示的条数,结果list类型是Page<E>

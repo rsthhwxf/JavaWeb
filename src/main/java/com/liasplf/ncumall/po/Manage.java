@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -23,5 +24,12 @@ public class Manage implements Serializable {
     private String realName;
     @TableField("status")
     private Integer status;
-
+    @TableField("isDelete")
+    private Integer isDelete;
+    @TableField("shopName")
+    private String shopName;
+    @TableField("createTime")
+    private Date createTime;
+    @TableField("description")
+    private String description;
 }
