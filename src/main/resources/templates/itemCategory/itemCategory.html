@@ -13,7 +13,7 @@
     <div class="padding border-bottom">
         <ul class="search" style="padding-left: 10px;">
             <li>
-                <a class="button border-main icon-plus-square-o" th:href="@{/itemCategory/add}">新增类目</a>
+                <a class="button border-main icon-plus-square-o" th:href="@{/admin/itemCategory/add}">新增类目</a>
             </li>
         </ul>
     </div>
@@ -28,9 +28,9 @@
             <td th:text="${data.name}"></td>
             <td>
                 <div class="button-group">
-                    <a class="button border-main" th:href="@{/itemCategory/listCategory2(pid=${data.id})}"><span class="icon-edit">查看二级分类</span> </a>
-                    <a class="button border-main" th:href="@{/itemCategory/update1(id=${data.id})}"><span class="icon-edit">修改</span> </a>
-                    <a class="button border-red" th:href="@{/itemCategory/delete1(id=${data.id})}"><span class="icon-trash-o">删除</span> </a>
+                    <a class="button border-main" th:href="@{/admin/itemCategory/listCategory2(pid=${data.id})}"><span class="icon-edit">查看二级分类</span> </a>
+                    <a class="button border-main" th:href="@{/admin/itemCategory/update1(id=${data.id})}"><span class="icon-edit">修改</span> </a>
+                    <a class="button border-red" th:href="@{/admin/itemCategory/delete1(id=${data.id})}"><span class="icon-trash-o">删除</span> </a>
                 </div>
             </td>
         </tr>
@@ -45,28 +45,28 @@
 
                         <ul class="pagination pull-right no-margin">
                             <li th:if="${pageInfo.hasPreviousPage}">
-                                <a th:href="'/itemCategory/listCategory1?pageNum=1'">首页</a>
+                                <a th:href="'/admin/itemCategory/listCategory1?pageNum=1'">首页</a>
                             </li>
 
                             <li class="prev" th:if="${pageInfo.hasPreviousPage}">
-                                <a th:href="'/itemCategory/listCategory1?pageNum='+${pageInfo.prePage}">
+                                <a th:href="'/admin/itemCategory/listCategory1?pageNum='+${pageInfo.prePage}">
                                     <i class="ace-icon fa fa-angle-double-left"></i>
                                 </a>
                             </li>
                             <!--遍历条数-->
                             <li th:each="nav:${pageInfo.navigatepageNums}">
-                                <a th:href="'/itemCategory/listCategory1?pageNum='+${nav}" th:text="${nav}" th:if="${nav != pageInfo.pageNum}"></a>
+                                <a th:href="'/admin/itemCategory/listCategory1?pageNum='+${nav}" th:text="${nav}" th:if="${nav != pageInfo.pageNum}"></a>
                                 <span style="font-weight: bold;background: #6faed9;" th:if="${nav == pageInfo.pageNum}" th:text="${nav}" ></span>
                             </li>
 
                             <li class="next" th:if="${pageInfo.hasNextPage}">
-                                <a th:href="'/itemCategory/listCategory1?pageNum='+${pageInfo.nextPage}">
+                                <a th:href="'/admin/itemCategory/listCategory1?pageNum='+${pageInfo.nextPage}">
                                     <i class="ace-icon fa fa-angle-double-right"></i>
                                 </a>
                             </li>
 
                             <li>
-                                <a th:href="'/itemCategory/listCategory1?pageNum='+${pageInfo.pages}">尾页</a>
+                                <a th:href="'/admin/itemCategory/listCategory1?pageNum='+${pageInfo.pages}">尾页</a>
                             </li>
                         </ul>
                     </div>

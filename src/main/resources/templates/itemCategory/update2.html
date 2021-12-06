@@ -14,7 +14,7 @@
         <strong><span class="icon-pencil-square-o">修改二级类目</span> </strong>
     </div>
     <div class="body-content">
-        <form th:action="@{/itemCategory/catUpdate2}" method="post" class="form-x">
+        <form th:action="@{/admin/itemCategory/catUpdate2}" method="post" class="form-x">
             <input type="hidden" name="id" th:value="${cate.id}" />
             <input type="hidden" name="pid" th:value="${cate.pid}" />
             <div class="form-group">

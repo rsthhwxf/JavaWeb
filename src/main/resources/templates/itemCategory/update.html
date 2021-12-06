@@ -14,7 +14,7 @@
         <strong><span class="icon-pencil-square-o">修改类目</span> </strong>
     </div>
     <div class="body-content">
-        <form th:action="@{/itemCategory/catUpdate}" method="post" class="form-x">
+        <form th:action="@{/admin/itemCategory/catUpdate}" method="post" class="form-x">
             <input type="hidden" name="id" th:value="${cate.id}" />
             <div class="form-group">
                 <div class="label"><label>一级类目名称：</label></div>

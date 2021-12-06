@@ -61,7 +61,18 @@ public class ItemServiceImpl extends ServiceImpl<ItemDao, Item> implements ItemS
     @Override
     public List<Item> getItemByManageId(Integer id) {
         List<Item> items = this.baseMapper.selectList(new QueryWrapper<Item>().eq("isDelete", 0).eq("manage_id", id));
+        List<ItemCategory> itemCategories = itemCategoryDao.selectList(null);
+        Map<Integer,ItemCategory> map = new HashMap<Integer,ItemCategory>();
+        for (ItemCategory itemCategory : itemCategories) {
+            map.put(itemCategory.getId(),itemCategory);
+        }
+        for (Item item : items) {
+            Integer id1 = item.getCategoryIdOne();
+            Integer id2 = item.getCategoryIdTwo();
 
+            item.setYiji(map.get(id1));
+            item.setErji(map.get(id2));
+        }
         return items;
     }
 

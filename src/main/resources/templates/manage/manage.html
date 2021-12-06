@@ -10,11 +10,11 @@
 </head>
 <body>
 <div class="panel admin-panel">
-    <form th:action="@{/admin/user/listUser}" id="listform" method="post">
+    <form th:action="@{/admin/manage/listManage}" id="listform" method="post">
         <div class="padding border-bottom">
             <ul class="search" style="padding-left: 10px;">
                 <li>
-                    <input type="text" placeholder="请输入用户名" name="userName" class="input"
+                    <input type="text" placeholder="请输入用户名" name="shopName" class="input"
                            style="width: 250px;line-height: 17px;display: inline-block" />
                     <a href="javascript:void(0)" onclick="changeSearch()" class="button border-main icon-search">搜索</a>
                 </li>
@@ -24,25 +24,22 @@
     <table class="table table-hover text-center">
         <tr>
             <th>用户名</th>
-            <th>手机号</th>
+            <th>密码</th>
             <th>真实姓名</th>
-            <th>性别</th>
-            <th>邮箱</th>
-            <th>地址</th>
-            <th>会员等级</th>
+            <th>商店名称</th>
+            <th>创建时间</th>
             <th>操作</th>
         </tr>
         <tr th:each="data:${list}">
             <td th:text="${data.userName}"></td>
-            <td th:text="${data.phone}"></td>
+            <td th:text="${data.passWord}"></td>
             <td th:text="${data.realName}"></td>
-            <td th:text="${data.sex}"></td>
-            <td th:text="${data.email}"></td>
-            <td th:text="${data.address}"></td>
-            <td th:text="${data.status}"></td>
+            <td th:text="${data.shopName}"></td>
+            <td th:text="${#dates.format(data.createTime,'yyyy-MM-dd HH:mm')}"></td>
             <td>
-                <a class="button border-main orange" th:href="@{/admin/user/update(id=${data.id})}"><span class="icon-edit">修改</span> </a>
-                <a class="button border-red" th:href="@{/admin/user/delete(id=${data.id})}"><span class="icon-trash-o">删除</span> </a>
+                <a class="button border-main orange" th:href="@{/admin/manage/update(id=${data.id})}"><span class="icon-edit">修改商店信息</span> </a>
+                <a class="button border-green" th:href="@{/admin/manage/lookShop(id=${data.id})}"><span class="icon-search">查看商店</span> </a>
+                <a class="button border-red" th:href="@{/admin/manage/delete(id=${data.id})}"><span class="icon-trash-o">注销</span> </a>
             </td>
         </tr>
 

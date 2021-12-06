@@ -10,11 +10,11 @@
 </head>
 <body>
 <div class="panel admin-panel">
-    <form th:action="@{/item/listItem}" id="listform" method="post">
+    <form th:action="@{/admin/item/listItem}" id="listform" method="post">
         <div class="padding border-bottom">
             <ul class="search" style="padding-left: 10px;">
                 <li>
-                    <a class="button border-main icon-plus-square-o" th:href="@{/item/add}">添加商品</a>
+                    <a class="button border-main icon-plus-square-o" th:href="@{/admin/item/add}">添加商品</a>
                 </li>
                 <li>
                     <input type="text" placeholder="请输入商品名称" name="itemName" class="input"
@@ -40,8 +40,8 @@
             <td th:text="${data.yiji.name}"></td>
             <td th:text="${data.erji.name}"></td>
             <td>
-                <a class="button border-main" th:href="@{/item/update(id=${data.id})}"><span class="icon-edit">修改</span> </a>
-                <a class="button border-red" th:href="@{/item/delete(id=${data.id})}"><span class="icon-trash-o">下架</span> </a>
+                <a class="button border-main" th:href="@{/admin/item/update(id=${data.id})}"><span class="icon-edit">修改</span> </a>
+                <a class="button border-red" th:href="@{/admin/item/delete(id=${data.id})}"><span class="icon-trash-o">下架</span> </a>
             </td>
         </tr>
         <tr>
@@ -55,28 +55,28 @@
 
                         <ul class="pagination pull-right no-margin">
                             <li th:if="${pageInfo.hasPreviousPage}">
-                                <a th:href="'/item/listItem?pageNum=1'">首页</a>
+                                <a th:href="'/admin/item/listItem?pageNum=1'">首页</a>
                             </li>
 
                             <li class="prev" th:if="${pageInfo.hasPreviousPage}">
-                                <a th:href="'/item/listItem?pageNum='+${pageInfo.prePage}">
+                                <a th:href="'/admin/item/listItem?pageNum='+${pageInfo.prePage}">
                                     <i class="ace-icon fa fa-angle-double-left"></i>
                                 </a>
                             </li>
                             <!--遍历条数-->
                             <li th:each="nav:${pageInfo.navigatepageNums}">
-                                <a th:href="'/item/listItem?pageNum='+${nav}" th:text="${nav}" th:if="${nav != pageInfo.pageNum}"></a>
+                                <a th:href="'/admin/item/listItem?pageNum='+${nav}" th:text="${nav}" th:if="${nav != pageInfo.pageNum}"></a>
                                 <span style="font-weight: bold;background: #6faed9;" th:if="${nav == pageInfo.pageNum}" th:text="${nav}" ></span>
                             </li>
 
                             <li class="next" th:if="${pageInfo.hasNextPage}">
-                                <a th:href="'/item/listItem?pageNum='+${pageInfo.nextPage}">
+                                <a th:href="'/admin/item/listItem?pageNum='+${pageInfo.nextPage}">
                                     <i class="ace-icon fa fa-angle-double-right"></i>
                                 </a>
                             </li>
 
                             <li>
-                                <a th:href="'/item/listItem?pageNum='+${pageInfo.pages}">尾页</a>
+                                <a th:href="'/admin/item/listItem?pageNum='+${pageInfo.pages}">尾页</a>
                             </li>
                         </ul>
                     </div>

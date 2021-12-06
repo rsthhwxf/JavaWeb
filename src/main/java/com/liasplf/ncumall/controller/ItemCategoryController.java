@@ -14,7 +14,7 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping("/itemCategory")
+@RequestMapping("/admin/itemCategory")
 public class ItemCategoryController {
     @Autowired
     private ItemCategoryService itemCategoryService;

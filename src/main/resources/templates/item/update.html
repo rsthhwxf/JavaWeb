@@ -14,7 +14,7 @@
         <strong><span class="icon-pencil-square-o">商品维护</span> </strong>
     </div>
     <div class="body-content">
-        <form th:action="@{/item/itemUpdate}" method="post" class="form-x" enctype="multipart/form-data">
+        <form th:action="@{/admin/item/itemUpdate}" method="post" class="form-x" enctype="multipart/form-data">
             <input type="hidden" name="id" th:value="${item.id}" />
             <div class="form-group">
                 <div class="label"><label>商品名称：</label></div>

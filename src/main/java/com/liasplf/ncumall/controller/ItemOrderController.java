@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
-@RequestMapping("/itemOrder")
+@RequestMapping("/admin/itemOrder")
 public class ItemOrderController {
     @Autowired
     private ItemOrderService itemOrderService;

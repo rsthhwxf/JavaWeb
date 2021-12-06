@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
-@RequestMapping("manage")
+@RequestMapping("/admin/manage")
 public class ManageController {
     @Autowired
     private ManageService manageService;
@@ -112,4 +112,8 @@ public class ManageController {
         manageService.updateById(manage);
         return "redirect:/manage/listManage";
     }
+
+
+
+
 }

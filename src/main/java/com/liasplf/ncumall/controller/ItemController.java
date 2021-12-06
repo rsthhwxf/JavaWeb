@@ -1,7 +1,7 @@
 package com.liasplf.ncumall.controller;
 
 import com.aliyun.oss.OSS;
-import com.aliyun.oss.model.PutObjectResult;
+
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.liasplf.ncumall.po.Item;
@@ -26,7 +26,7 @@ import java.io.InputStream;
 import java.util.List;
 
 @Controller
-@RequestMapping("/item")
+@RequestMapping("/admin/item")
 public class ItemController {
     @Autowired
     private ItemService itemService;

@@ -10,7 +10,7 @@
 </head>
 <body>
 <div class="panel admin-panel">
-    <form th:action="@{/itemOrder/searchOrder}" id="listform" method="post">
+    <form th:action="@{/admin/itemOrder/listItemOrder}" id="listform" method="post">
         <div class="padding border-bottom">
             <ul class="search" style="padding-left: 10px;">
                 <li>
@@ -37,8 +37,8 @@
             <td th:text="${data.user.userName}"></td>
             <td th:text="${data.status}"></td>
             <td>
-                <a class="button border-main" th:href="@{/itemOrder/update(id=${data.id})}"><span class="icon-search">查看购买商品</span> </a>
-                <a th:if="${data.status==0}" class="button border-green" th:href="@{/itemOrder/send(id=${data.id})}"><span class="icon-edit">发货</span> </a>
+                <a class="button border-main" th:href="@{/admin/itemOrder/update(id=${data.id})}"><span class="icon-search">查看购买商品</span> </a>
+                <a th:if="${data.status==0}" class="button border-green" th:href="@{/admin/itemOrder/send(id=${data.id})}"><span class="icon-edit">发货</span> </a>
             </td>
         </tr>
 
@@ -53,28 +53,28 @@
 
                         <ul class="pagination pull-right no-margin">
                             <li th:if="${pageInfo.hasPreviousPage}">
-                                <a th:href="'/itemOrder/listItemOrder?pageNum=1'">首页</a>
+                                <a th:href="'/admin/itemOrder/listItemOrder?pageNum=1'">首页</a>
                             </li>
 
                             <li class="prev" th:if="${pageInfo.hasPreviousPage}">
-                                <a th:href="'/itemOrder/listItemOrder?pageNum='+${pageInfo.prePage}">
+                                <a th:href="'/admin/itemOrder/listItemOrder?pageNum='+${pageInfo.prePage}">
                                     <i class="ace-icon fa fa-angle-double-left"></i>
                                 </a>
                             </li>
                             <!--遍历条数-->
                             <li th:each="nav:${pageInfo.navigatepageNums}">
-                                <a th:href="'/itemOrder/listItemOrder?pageNum='+${nav}" th:text="${nav}" th:if="${nav != pageInfo.pageNum}"></a>
+                                <a th:href="'/admin/itemOrder/listItemOrder?pageNum='+${nav}" th:text="${nav}" th:if="${nav != pageInfo.pageNum}"></a>
                                 <span style="font-weight: bold;background: #6faed9;" th:if="${nav == pageInfo.pageNum}" th:text="${nav}" ></span>
                             </li>
 
                             <li class="next" th:if="${pageInfo.hasNextPage}">
-                                <a th:href="'/itemOrder/listItemOrder?pageNum='+${pageInfo.nextPage}">
+                                <a th:href="'/admin/itemOrder/listItemOrder?pageNum='+${pageInfo.nextPage}">
                                     <i class="ace-icon fa fa-angle-double-right"></i>
                                 </a>
                             </li>
 
                             <li>
-                                <a th:href="'/itemOrder/listItemOrder?pageNum='+${pageInfo.pages}">尾页</a>
+                                <a th:href="'/admin/itemOrder/listItemOrder?pageNum='+${pageInfo.pages}">尾页</a>
                             </li>
                         </ul>
                     </div>
