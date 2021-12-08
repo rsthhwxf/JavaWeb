@@ -9,7 +9,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class CarDto {
+public class CartDto {
     private Integer id;
     private Integer num;
 

@@ -16,7 +16,7 @@
                 <b></b>
                 <a th:href="@{/user/uExit}">退出</a>
                 <b></b>
-                <a th:href="@{/cart/listCartItem}">我的购物车</a>
+                <a th:href="@{/cart/myCart}">我的购物车</a>
                 <b></b>
                 <a th:href="@{/user/self}">个人中心</a>
             </div>
@@ -39,12 +39,7 @@
             <!--            <img th:src="@{/images/logo.png}" alt="" style="height: 70px">-->
             <h1 style="color: red">NCUMALL</h1>
         </a>
-        <div class="right_yh" style="height:28px;width:316px;border:2px solid #dd4545;margin-top:-40px;">
-            <form action="${ctx}/item/shoplist" method="post">
-                <input type="text" placeholder="关键词查询" class="search" name="condition" >
-                <input type="submit" class="btnSearh" value="搜索">
-            </form>
-        </div>
+
     </div>
 </div>
 
@@ -70,17 +65,17 @@
 </div>
 <div class="width1198 center_yh" style="height: 420px;">
     <div class="left_yh" style="width: 350px;height: 420px;">
-        <input type="hidden" id="id" value="${obj.id}">
+        <input type="hidden" id="id" th:value="${item.id}">
         <div id="preview">
             <div>
                 <img th:src="${item.url1}" alt="" height="350" width="350">
             </div>
             <div id="spec-list" style="margin-top: 5px;">
                 <ul class="list-h">
-                    <li><img th:src="${item.url2}" height="80" width="80"></li>
-                    <li><img th:src="${item.url3}" height="80" width="80"></li>
-                    <li><img th:src="${item.url4}" height="80" width="80"></li>
-                    <li><img th:src="${item.url5}" height="80" width="80"></li>
+                    <li th:if="${item.url2==null}"><img th:src="${item.url2}" height="80" width="80"></li>
+                    <li th:if="${item.url3==null}"><img th:src="${item.url3}" height="80" width="80"></li>
+                    <li th:if="${item.url4==null}"><img th:src="${item.url4}" height="80" width="80"></li>
+                    <li th:if="${item.url5==null}"><img th:src="${item.url5}" height="80" width="80"></li>
                 </ul>
             </div>
         </div>
@@ -127,7 +122,6 @@
             </script>
         </p>
         <div class="buyFor">
-            <a href="${ctx}/sc/exAdd?itemId=${obj.id}" class="mstBuy">收藏</a>
             <a href="javascript:void(0)" class="addCar">加入购物车</a>
         </div>
     </div>
@@ -178,18 +172,21 @@
 
     $(function () {
         $(".addCar").click(function () {
+            console.log("已加入购物车")
             var id = $("#id").val();
             var num = $("#t_a").val();
             $.ajax({
                 type:"POST",
-                url:"${ctx}/car/exAdd?itemId="+id+"&num="+num,
+                url:"[[@{/cart/cartAddItem}]]",
+                data:{'itemId':id,'num':num},
+                dataType:'json',
                 success:function (result) {
                     var re = result;
                     if(re.res == 0){
                         alert("请登录");
-                        window.location.href="${ctx}/login/uLogin";
+                        window.location.href="/login/uLogin";
                     }else {
-                        window.location.href="${ctx}/car/findBySql";
+                        window.location.href="/cart/myCart";
                     }
                 }
             });

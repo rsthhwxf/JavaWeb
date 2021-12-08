@@ -106,5 +106,17 @@ public class ItemServiceImpl extends ServiceImpl<ItemDao, Item> implements ItemS
         return items;
     }
 
+    @Override
+    public List<Item> getItemsByCat2(Integer categoryId2,Integer condition) {
+        if(condition==null){
+            return this.baseMapper.selectList(new QueryWrapper<Item>().eq("isDelete",0).eq("category_id_two",categoryId2));
+        }else if(condition==1){
+            return this.baseMapper.selectList(new QueryWrapper<Item>().eq("isDelete",0).eq("category_id_two",categoryId2).orderByAsc("price"));
+
+        }
+        return this.baseMapper.selectList(new QueryWrapper<Item>().eq("isDelete",0).eq("category_id_two",categoryId2).orderByAsc("scNum"));
+
+    }
+
 
 }

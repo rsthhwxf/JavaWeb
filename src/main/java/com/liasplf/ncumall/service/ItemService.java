@@ -15,4 +15,6 @@ public interface ItemService extends IService<Item> {
     List<Item> getTopZk();
 
     List<Item> getTopRx();
+
+    List<Item> getItemsByCat2(Integer categoryId2,Integer condition);
 }

@@ -17,7 +17,7 @@
                 <b></b>
                 <a th:href="@{/user/uExit}">退出</a>
                 <b></b>
-                <a th:href="@{/cart/listCartItem}">我的购物车</a>
+                <a th:href="@{/cart/myCart}">我的购物车</a>
                 <b></b>
                 <a th:href="@{/user/self}">个人中心</a>
             </div>
@@ -41,7 +41,7 @@
             <h1 style="color: red">NCUMALL</h1>
         </a>
         <div class="right_yh" style="height:28px;width:316px;border:2px solid #dd4545;margin-top:-40px;">
-            <form action="${ctx}/item/shoplist" method="post">
+            <form th:action="@{/item/searchItem}" method="post">
                 <input type="text" placeholder="关键词查询" class="search" name="condition" >
                 <input type="submit" class="btnSearh" value="搜索">
             </form>
@@ -67,7 +67,7 @@
                             <div class="n3Nav">
                                 <h3 th:text="${data.father.name}"></h3>
                                 <div th:each="child:${data.childrens}">
-                                    <a th:href="@{/item/shoplist(categoryIdTwo=${child.id})}" th:text="${child.name}"></a>
+                                    <a th:href="@{/item/itemList(categoryId2=${child.id})}" th:text="${child.name}"></a>
                                 </div>
                             </div>
                         </div>

@@ -93,19 +93,6 @@ public class Item implements Serializable{
     private String ms;
 
 
-    @TableField("pam1")
-    private String pam1;
-    @TableField("pam2")
-    private String pam2;
-    @TableField("pam3")
-    private String pam3;
-    @TableField("val1")
-    private String val1;
-    @TableField("val2")
-    private String val2;
-    @TableField("val3")
-    private String val3;
-
     @TableField("type")
     private Integer type;
 
