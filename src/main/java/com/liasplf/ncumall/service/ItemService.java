@@ -11,4 +11,8 @@ public interface ItemService extends IService<Item> {
     List<Item> searchItem(String itemName, Integer status, Integer id);
 
     List<Item> getItemByManageId(Integer id);
+
+    List<Item> getTopZk();
+
+    List<Item> getTopRx();
 }

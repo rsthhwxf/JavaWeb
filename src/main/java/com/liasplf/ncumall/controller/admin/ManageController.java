@@ -1,4 +1,4 @@
-package com.liasplf.ncumall.controller;
+package com.liasplf.ncumall.controller.admin;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -69,7 +69,7 @@ public class ManageController {
     @RequestMapping("/manageUpdate")
     public String manageUpdate(Manage manage){
         manageService.updateById(manage);
-        return "redirect:/manage/listManage";
+        return "redirect:/admin/manage/listManage";
     }
 
     @RequestMapping("/lookShop")
@@ -110,10 +110,22 @@ public class ManageController {
         Manage manage = manageService.getById(id);
         manage.setIsDelete(1);
         manageService.updateById(manage);
-        return "redirect:/manage/listManage";
+        return "redirect:/admin/manage/listManage";
     }
 
+    @RequestMapping("/sUpdate")
+    public String sUpdate(Integer id,Model model){
+        Manage manage = manageService.getById(id);
+        model.addAttribute("manage",manage);
+        return "manage/sUpdate";
+    }
 
+    @RequestMapping("/selfUpdate")
+    public String selfUpdate(Manage manage,Model model){
+        manageService.updateById(manage);
+        model.addAttribute("manage",manage);
+        return "redirect:/admin/manage/sUpdate?id="+manage.getId();
+    }
 
 
 }

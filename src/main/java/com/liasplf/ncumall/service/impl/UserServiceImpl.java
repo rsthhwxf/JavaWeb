@@ -21,4 +21,17 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
     public List<User> searchUser(String userName) {
         return this.getBaseMapper().selectList(new QueryWrapper<User>().eq("isDelete",0).like("userName",userName));
     }
+
+    @Override
+    public User getByUserName(String userName) {
+        User user = this.baseMapper.selectOne(new QueryWrapper<User>().eq("userName", userName));
+        return user;
+    }
+
+    @Override
+    public boolean checkUser(String userName) {
+        User user = this.baseMapper.selectOne(new QueryWrapper<User>().eq("userName", userName));
+        if(user==null)return true;
+        return false;
+    }
 }

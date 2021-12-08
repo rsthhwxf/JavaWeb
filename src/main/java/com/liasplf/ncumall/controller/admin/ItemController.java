@@ -1,14 +1,17 @@
-package com.liasplf.ncumall.controller;
+package com.liasplf.ncumall.controller.admin;
 
 import com.aliyun.oss.OSS;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.liasplf.ncumall.po.Comment;
 import com.liasplf.ncumall.po.Item;
 import com.liasplf.ncumall.po.ItemCategory;
 import com.liasplf.ncumall.po.Manage;
+import com.liasplf.ncumall.service.CommentService;
 import com.liasplf.ncumall.service.ItemCategoryService;
 import com.liasplf.ncumall.service.ItemService;
+import com.liasplf.ncumall.service.UserService;
 import com.liasplf.ncumall.utils.Consts;
 import com.liasplf.ncumall.utils.UUIDUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +37,10 @@ public class ItemController {
     private ItemCategoryService itemCategoryService;
     @Autowired
     private OSS ossClient;
+    @Autowired
+    private CommentService commentService;
+    @Autowired
+    private UserService userService;
 
     @RequestMapping("/listItem")
     public String listItem(Model model, HttpServletRequest request,String itemName,
@@ -98,7 +105,7 @@ public class ItemController {
         Manage manage = (Manage) request.getSession().getAttribute("manage");
         item.setManageId(manage.getId());
         itemService.save(item);
-        return "redirect:/item/listItem";
+        return "redirect:/admin/item/listItem";
     }
 
     @RequestMapping("/update")
@@ -115,7 +122,7 @@ public class ItemController {
         itemUpload(item, files, request);
         itemService.updateById(item);
         attributes.addFlashAttribute("manage",request.getSession().getAttribute("manage"));
-        return "redirect:/item/listItem";
+        return "redirect:/admin/item/listItem";
     }
 
     @RequestMapping("/delete")
@@ -123,7 +130,7 @@ public class ItemController {
         Item item = itemService.getById(id);
         item.setIsDelete(1);
         itemService.updateById(item);
-        return "redirect:/item/listItem";
+        return "redirect:/admin/item/listItem";
     }
 
     private void itemUpload(Item item, @RequestParam("file") MultipartFile [] files, HttpServletRequest request) throws IOException {
@@ -159,24 +166,11 @@ public class ItemController {
                     }
                 }
 
-//                if (s == 0) {
-//                    item.setUrl1(Consts.OSS_PRE_PATH + n + files[s].getOriginalFilename());
-//                }
-//                if (s == 1) {
-//                    item.setUrl2(Consts.OSS_PRE_PATH + n + files[s].getOriginalFilename());
-//                }
-//                if (s == 2) {
-//                    item.setUrl3(Consts.OSS_PRE_PATH + n + files[s].getOriginalFilename());
-//                }
-//                if (s == 3) {
-//                    item.setUrl4(Consts.OSS_PRE_PATH + n + files[s].getOriginalFilename());
-//                }
-//                if (s == 4) {
-//                    item.setUrl5(Consts.OSS_PRE_PATH + n + files[s].getOriginalFilename());
-//                }
             }
         }
         ItemCategory byId = itemCategoryService.getById(item.getCategoryIdTwo());
         item.setCategoryIdOne(byId.getPid());
     }
+
+
 }

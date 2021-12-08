@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>首页</title>
+    <link type="text/css" rel="stylesheet" th:href="@{/user/css/style.css}">
+    <script th:src="@{/user/js/jquery-1.8.3.min.js}"></script>
+    <script th:src="@{/user/js/jquery.luara.0.0.1.min.js}"></script>
+</head>
+<body>
+<div class="width100" style="height: 25px;background: #f0f0f0;">
+    <div class="width1200 center_yh font14 c_66" style="height: 25px;line-height: 25px;">
+        <font class="left_yh">欢迎来到NCUMALL！</font>
+        <div class="right_yh" id="fast_jump">
+            <div th:if="${#request.getSession().getAttribute('user')!=null}">
+                <a href="#" th:text="${#request.getSession().getAttribute('username')}"></a>
+                <b></b>
+                <a th:href="@{/user/uExit}">退出</a>
+                <b></b>
+                <a th:href="@{/cart/listCartItem}">我的购物车</a>
+                <b></b>
+                <a th:href="@{/user/self}">个人中心</a>
+            </div>
+            <div th:if="${#request.getSession().getAttribute('user')==null}">
+                <a th:href="@{/user/uLogin}">登录</a>
+                <b></b>
+                <a th:href="@{/user/uRegis}">注册</a>
+                <b></b>
+                <a th:href="@{/manage/becomManage}">成为商家</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="width100 hidden_yh">
+    <div class="width1200 center_yh hidden_yh">
+        <br>
+        <br>
+        <a href="#" class="block_yh left_yh">
+            <!--            <img th:src="@{/images/logo.png}" alt="" style="height: 70px">-->
+            <h1 style="color: red">NCUMALL</h1>
+        </a>
+        <div class="right_yh" style="height:28px;width:316px;border:2px solid #dd4545;margin-top:-40px;">
+            <form action="${ctx}/item/shoplist" method="post">
+                <input type="text" placeholder="关键词查询" class="search" name="condition" >
+                <input type="submit" class="btnSearh" value="搜索">
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--导航条-->
+<div class="width100" style="height: 45px;background: #dd4545;margin-top: 40px;position: relative;z-index: 100;">
+    <!--中间的部分-->
+    <div class="width1200 center_yh relative_yh" style="height: 45px;">
+        <!--普通导航-->
+        <div class="left_yh font16" id="pageNav">
+            <a th:href="@{/index/uIndex}">首页</a>
+            <a href="#">待扩展1</a>
+            <a href="#">待扩展2</a>
+            <a href="#">待扩展3</a>
+            <a href="#">待扩展4</a>
+        </div>
+    </div>
+</div>
+
+<div class="width1200 center_yh hidden_yh font14" style="height: 40px;line-height: 40px;">
+    <span>当前位置：</span><a th:href="@{/login/uIndex}" class="c_66">首页</a>
+    ><a href="#" class="c_66">商品列表</a>
+    ><a href="#" class="c_66">详情</a>
+</div>
+<div class="width1198 center_yh" style="height: 420px;">
+    <div class="left_yh" style="width: 350px;height: 420px;">
+        <input type="hidden" id="id" value="${obj.id}">
+        <div id="preview">
+            <div>
+                <img th:src="${item.url1}" alt="" height="350" width="350">
+            </div>
+            <div id="spec-list" style="margin-top: 5px;">
+                <ul class="list-h">
+                    <li><img th:src="${item.url2}" height="80" width="80"></li>
+                    <li><img th:src="${item.url3}" height="80" width="80"></li>
+                    <li><img th:src="${item.url4}" height="80" width="80"></li>
+                    <li><img th:src="${item.url5}" height="80" width="80"></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="left_yh" style="width: 486px;height: 420px;margin-left: 42px;">
+        <h3 class="font20 font100" th:text="${item.name}"></h3>
+        <p class="font16 c_66" style="margin-top:25px;">
+            <font style="margin-right: 20px;">价格：</font>
+            <font class="red font20" th:text="'￥'+${item.price}">
+                ￥${obj.price}
+            </font>
+        </p>
+        <div th:if="${item.zk!=-1}">
+            <p class="font16 c_66" style="margin-top:25px;">
+                <font style="margin-right: 20px;">促销：</font>
+                <font th:text="${item.zk}">
+                    ${obj.zk}
+                    <span style="color: red">折</span>
+                </font>
+            </p>
+        </div>
+
+        <p class="font16 c_66 likeColor" style="margin-top: 25px;">
+            <font style="margin-right: 20px;">数量：</font>
+            <a href="javascript:void(0)" id="min_s">-</a>
+            <input type="text" value="1" readonly id="t_a">
+            <a href="javascript:void(0)" id="add_s">+</a>
+            <font class="font14 c_99" style="margin-left: 20px;">库存100</font>
+            <script>
+                var tr = $("#t_a").val();
+                $("#min_s").click(function () {
+                    tr--;
+                    if(tr<1){
+                        $("#t_a").val(1);
+                        tr = 1;
+                    }else{
+                        $("#t_a").val(tr);
+                    }
+                });
+                $("#add_s").click(function () {
+                    tr++;
+                    $("#t_a").val(tr);
+                });
+            </script>
+        </p>
+        <div class="buyFor">
+            <a href="${ctx}/sc/exAdd?itemId=${obj.id}" class="mstBuy">收藏</a>
+            <a href="javascript:void(0)" class="addCar">加入购物车</a>
+        </div>
+    </div>
+</div>
+<div class="width1200 hidden_yh center_yh" style="margin-top: 40px;">
+    <div class="right_yh" style="width: 1200px;">
+        <div class="hidden_yh" id="spXqpj">
+            <a href="javascript:void(0)" class="on">商品详情</a>
+            <a href="javascript:void(0)">商品评价</a>
+        </div>
+        <div class="width100 hidden_yh">
+            <div id="spDetail" th:text="${item.ms}">
+                ${obj.ms}
+            </div>
+            <div id="spPj">
+                <div class="width100 hidden_yh" style="padding-bottom: 20px;border-bottom: 1px dashed #ddd; margin-bottom: 10px;">
+                    <div th:each="data:${item.comments}">
+                        <div style="width: 790px;float: right;overflow:hidden;margin-top: 20px;">
+                            <img th:src="@{/user/images/x.jpg}" style="width: 40px;height: 40px;border-radius: 50%;float: left;border:1px solid #ddd;margin-top: 20px;margin-right: 30px;">
+                            <h3 class="font16 c_33 font100" style="color: red;font-weight: bold;" th:text="${data.user.userName}"></h3>
+                            <p class="font14 c_99" style="margin-top: 6px;" th:text="${#dates.format(data.addTime,'yyyy-MM-dd HH:mm')}">
+
+                            </p>
+                            <p class="font16 c_33" style="margin-top: 6px;" th:text="${data.content}">
+
+                            </p>
+                            <div class="width100 hidden_yh" style="padding-bottom: 20px; border-bottom: 1px dashed #ddd;margin-bottom: 10px;">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#spXqpj a").click(function () {
+        $(this).addClass("on").siblings().removeClass("on");
+    });
+    $("#spXqpj a").eq(0).click(function () {
+        $("#spDetail").css({display:"block"}).siblings().css({display:"none"});
+    });
+    $("#spXqpj a").eq(1).click(function () {
+        $("#spPj").css({display:"block"}).siblings().css({display:"none"});
+    });
+
+    $(function () {
+        $(".addCar").click(function () {
+            var id = $("#id").val();
+            var num = $("#t_a").val();
+            $.ajax({
+                type:"POST",
+                url:"${ctx}/car/exAdd?itemId="+id+"&num="+num,
+                success:function (result) {
+                    var re = result;
+                    if(re.res == 0){
+                        alert("请登录");
+                        window.location.href="${ctx}/login/uLogin";
+                    }else {
+                        window.location.href="${ctx}/car/findBySql";
+                    }
+                }
+            });
+        });
+    });
+</script>
+<!--<div th:replace="uFooter :: html"></div>-->
+<div class="width1200 center_yh" style="height: 130px;margin-top: 60px;">
+    <img th:src="@{/user/images/db.png}" alt="">
+</div>
+<!--页脚-->
+<div class="width100 hidden_yh" style="background: #f0f0f0;margin-top: 90px;">
+    <div class="width1200 center_yh tcenter" >
+        <div class="font16 c_33 tcenter" style="margin-top: 6px;">www.ncumall.com © Copyright NCUMALL 2021-2022</div>
+        <div class="font16 c_33 tcenter" style="margin-top: 6px;">电话：010-00000000 手机：13812345678</div>
+        <div class="font16 c_33 tcenter" style="margin-top: 6px;">京公网安备 xxxxxxxxxx号 </div>
+    </div>
+</div>
+</body>
+</html>
+

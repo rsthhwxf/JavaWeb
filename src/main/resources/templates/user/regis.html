@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>首页</title>
+    <link type="text/css" rel="stylesheet" th:href="@{/user/css/style.css}">
+    <script th:src="@{/user/js/jquery-1.8.3.min.js}"></script>
+    <script th:src="@{/user/js/jquery.luara.0.0.1.min.js}"></script>
+</head>
+<body>
+<div class="width100 hidden_yh" style="border-top: 1px solid #ddd">
+    <div class="width1200 hidden_yh center_yh" style="margin-top: 75px">
+        <form th:action="@{/user/toRegis}" method="post">
+            <div class="center_yh hidden_yh" style="width: 475px;margin-bottom: 40px;">
+                <span style="margin-right: 40px;height: 42px;line-height: 42px;width: 100px;" class="left_yh block_yh tright">用户名：</span>
+                <input type="text" name="userName" placeholder="请输入您的用户名" style="border:1px solid #c9c9c9;width: 292px;height: 42px;font-size: 16px;text-indent: 22px;" class="left_yh">
+            </div>
+            <div class="center_yh hidden_yh" style="width: 475px;margin-bottom: 40px;">
+                <span style="margin-right: 40px;height: 42px;line-height: 42px;width: 100px;" class="left_yh block_yh tright">设置密码：</span>
+                <input type="text" name="passWord" placeholder="建议至少使用两种字符组合" style="border:1px solid #c9c9c9;width: 292px;height: 42px;font-size: 16px;text-indent: 22px;" class="left_yh">
+            </div>
+            <div class="center_yh hidden_yh" style="width: 475px;margin-bottom: 40px;">
+                <span style="margin-right: 40px;height: 42px;line-height: 42px;width: 100px;" class="left_yh block_yh tright">手机号：</span>
+                <input type="text" name="phone" placeholder="建议使用常用的手机" style="border:1px solid #c9c9c9;width: 292px;height: 42px;font-size: 16px;text-indent: 22px;" class="left_yh">
+            </div>
+            <div class="center_yh hidden_yh" style="width: 475px;margin-bottom: 40px;">
+                <span style="margin-right: 40px;height: 42px;line-height: 42px;width: 100px;" class="left_yh block_yh tright">收件地址：</span>
+                <input type="text" name="realName" placeholder="输入收件地址" style="border:1px solid #c9c9c9;width: 292px;height: 42px;font-size: 16px;text-indent: 22px;" class="left_yh">
+            </div>
+            <div class="center_yh hidden_yh" style="width: 475px;margin-bottom: 40px;">
+                <span style="margin-right: 40px;height: 42px;line-height: 42px;width: 100px;" class="left_yh block_yh tright">电子邮箱：</span>
+                <input type="text" name="email" placeholder="请输入邮箱" style="border:1px solid #c9c9c9;width: 292px;height: 42px;font-size: 16px;text-indent: 22px;" class="left_yh">
+            </div>
+            <p class="font14 c_66" style="text-indent: 500px;margin-top: 30px;">
+                <input type="checkbox">我已阅读并同意<a href="#" class="red">《会员注册协议》</a>和<a href="#" class="red">《隐私保护政策》</a>
+            </p>
+            <div th:if="${info!=null}">
+                <h2 align="center" style="color: red" th:text="${info}"></h2>
+            </div>
+            <input type="submit" value="提交" class="ipt_tj" style="width: 295px;height: 44px;margin-left: 500px;">
+        </form>
+    </div>
+</div>
+<div class="width1200 center_yh" style="height: 130px;margin-top: 60px;">
+    <img th:src="@{/user/images/db.png}" alt="">
+</div>
+<!--页脚-->
+<div class="width100 hidden_yh" style="background: #f0f0f0;margin-top: 90px;">
+    <div class="width1200 center_yh tcenter" >
+        <div class="font16 c_33 tcenter" style="margin-top: 6px;">www.ncumall.com © Copyright NCUMALL 2021-2022</div>
+        <div class="font16 c_33 tcenter" style="margin-top: 6px;">电话：010-00000000 手机：13812345678</div>
+        <div class="font16 c_33 tcenter" style="margin-top: 6px;">京公网安备 xxxxxxxxxx号 </div>
+    </div>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

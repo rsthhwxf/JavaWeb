@@ -24,13 +24,13 @@ public class ItemCategoryServiceImpl extends ServiceImpl<ItemCategoryDao, ItemCa
     //获取一级分类
     @Override
     public List<ItemCategory> getAll() {
-        return mapper.selectList(new QueryWrapper<ItemCategory>().eq("pid",0));
+        return mapper.selectList(new QueryWrapper<ItemCategory>().eq("pid",0).eq("isDelete",0));
     }
 
     //获取指定pid下的所有二级分类
     @Override
     public List<ItemCategory> getAll2(Integer pid) {
-        return mapper.selectList(new QueryWrapper<ItemCategory>().eq("pid",pid));
+        return mapper.selectList(new QueryWrapper<ItemCategory>().eq("pid",pid).eq("isDelete",0));
     }
     //获取所有二级分类
     @Override

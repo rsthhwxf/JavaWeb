@@ -1,4 +1,4 @@
-package com.liasplf.ncumall.controller;
+package com.liasplf.ncumall.controller.admin;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -67,7 +67,7 @@ public class ItemCategoryController {
         category.setPid(0);
         category.setName(name);
         itemCategoryService.save(category);
-        return "redirect:/itemCategory/listCategory1";
+        return "redirect:/admin/itemCategory/listCategory1";
     }
 
     @RequestMapping("/update1")
@@ -81,12 +81,14 @@ public class ItemCategoryController {
     public String catUpdate(ItemCategory category){
 
         itemCategoryService.updateById(category);
-        return "redirect:/itemCategory/listCategory1";
+        return "redirect:/admin/itemCategory/listCategory1";
     }
     @RequestMapping("/delete1")
-    public String update1(Integer id){
-        itemCategoryService.removeById(id);
-        return "redirect:/itemCategory/listCategory1";
+    public String delete1(Integer id){
+        ItemCategory itemCategory = itemCategoryService.getById(id);
+        itemCategory.setIsDelete(1);
+        itemCategoryService.updateById(itemCategory);
+        return "redirect:/admin/itemCategory/listCategory1";
     }
 
     @RequestMapping("/listCategory2")
@@ -138,7 +140,7 @@ public class ItemCategoryController {
         category.setPid(pid);
         category.setName(name);
         itemCategoryService.save(category);
-        return "redirect:/itemCategory/listCategory1";
+        return "redirect:/admin/itemCategory/listCategory1";
     }
     @RequestMapping("/update2")
     public String update2(Integer id,Model model){
@@ -150,6 +152,6 @@ public class ItemCategoryController {
     public String catUpdate2(ItemCategory category){
 
         itemCategoryService.updateById(category);
-        return "redirect:/itemCategory/listCategory1";
+        return "redirect:/admin/itemCategory/listCategory1";
     }
 }

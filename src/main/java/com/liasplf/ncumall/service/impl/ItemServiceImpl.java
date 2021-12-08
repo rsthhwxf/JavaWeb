@@ -76,5 +76,35 @@ public class ItemServiceImpl extends ServiceImpl<ItemDao, Item> implements ItemS
         return items;
     }
 
+    @Override
+    public List<Item> getTopZk() {
+        List<Item> list = this.baseMapper.selectList(new QueryWrapper<Item>().eq("isDelete",0).ne("zk",-1).orderByAsc("zk"));
+        List<Item> items;
+        if(list.size()>10){
+            items = new ArrayList<>();
+            for(int i = 0;i< 10;i++){
+                items.add(list.get(i));
+            }
+        }else{
+            items = list;
+        }
+        return items;
+    }
+
+    @Override
+    public List<Item> getTopRx() {
+        List<Item> list = this.baseMapper.selectList(new QueryWrapper<Item>().eq("isDelete",0).orderByDesc("gmNum"));
+        List<Item> items;
+        if(list.size()>10){
+            items = new ArrayList<>();
+            for(int i = 0;i< 10;i++){
+                items.add(list.get(i));
+            }
+        }else{
+            items = list;
+        }
+        return items;
+    }
+
 
 }

@@ -9,4 +9,9 @@ public interface UserService extends IService<User> {
     List<User> getAll();
 
     List<User> searchUser(String userName);
+
+    //首页用户登录
+    User getByUserName(String userName);
+
+    boolean checkUser(String userName);
 }

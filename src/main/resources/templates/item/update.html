@@ -50,36 +50,36 @@
             <div class="form-group">
                 <div class="label"><label>主图：</label></div>
                 <div class="field">
-                    <input type="file" class="input w50" name="file" />
-                    <div class="tips"><img th:src="${item.url1}" th:alt="${item.url1}"></div>
+                    <input type="file" th:value="${item.url1}" class="input w50" name="file" />
+                    <div th:style="${item.url1==null}?'display:none':''" class="tips"><img width="100px" height="100px" th:src="${item.url1}" th:alt="${item.url1}"></div>
                 </div>
             </div>
             <div class="form-group">
                 <div class="label"><label>副图1：</label></div>
                 <div class="field">
-                    <input type="file" class="input w50" name="file" />
-                    <div class="tips"><img th:src="${item.url2}" th:alt="${item.url2}"></div>
+                    <input type="file" th:value="${item.url2}" class="input w50" name="file" />
+                    <div th:style="${item.url2==null}?'display:none':''" class="tips"><img width="100px" height="100px"  th:src="${item.url2}" th:alt="${item.url2}"></div>
                 </div>
             </div>
             <div class="form-group">
                 <div class="label"><label>副图2：</label></div>
                 <div class="field">
-                    <input type="file" class="input w50" name="file" />
-                    <div class="tips"><img th:src="${item.url3}" th:alt="${item.url3}"></div>
+                    <input type="file" th:value="${item.url3}" class="input w50" name="file" />
+                    <div th:style="${item.url3==null}?'display:none':''" class="tips"><img width="100px" height="100px" th:src="${item.url3}" th:alt="${item.url3}"></div>
                 </div>
             </div>
             <div class="form-group">
                 <div class="label"><label>副图3：</label></div>
                 <div class="field">
-                    <input type="file" class="input w50" name="file" />
-                    <div class="tips"><img th:src="${item.url4}" th:alt="${item.url4}"></div>
+                    <input type="file" th:value="${item.url4}" class="input w50" name="file" />
+                    <div th:style="${item.url4==null}?'display:none':''" class="tips"><img width="100px" height="100px" th:src="${item.url4}" th:alt="${item.url4}"></div>
                 </div>
             </div>
             <div class="form-group">
                 <div class="label"><label>副图4：</label></div>
                 <div class="field">
-                    <input type="file" class="input w50" name="file" />
-                    <div class="tips"><img th:src="${item.url5}" th:alt="${item.url5}"></div>
+                    <input type="file" th:value="${item.url5}" class="input w50" name="file" />
+                    <div th:style="${item.url5==null}?'display:none':''" class="tips"><img width="100px" height="100px" th:src="${item.url5}" th:alt="${item.url5}"></div>
                 </div>
             </div>
             <div class="form-group">

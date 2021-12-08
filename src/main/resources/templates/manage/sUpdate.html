@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>管理员后台</title>
+    <link rel="stylesheet" th:href="@{/css/pintuer.css}">
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+    <script th:src="@{/js/jquery.js}"></script>
+    <script th:src="@{/js/pintuer.js}"></script>
+</head>
+<body>
+<div class="panel admin-panel">
+    <div class="panel-head" id="add">
+        <strong><span class="icon-pencil-square-o">用户信息修改</span> </strong>
+    </div>
+    <div class="body-content">
+        <form th:action="@{/admin/manage/selfUpdate}" method="post" class="form-x" enctype="multipart/form-data">
+            <input type="hidden" name="id" th:value="${manage.id}" />
+            <div class="form-group">
+                <div class="label"><label>用户名称：</label></div>
+                <div class="field">
+                    <input type="text" class="input w50" name="manageName" data-validate="required:请输入用户名称" th:value="${manage.userName}"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label"><label>用户密码：</label></div>
+                <div class="field">
+                    <input type="text" class="input w50" name="passWord" data-validate="required:请输入用户密码"  th:value="${manage.passWord}"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label"><label>真实姓名：</label></div>
+                <div class="field">
+                    <input type="text" class="input w50" name="realName" data-validate="required:请输入用户手机号"  th:value="${manage.realName}"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label"><label>店铺名称：</label></div>
+                <div class="field">
+                    <input type="text" class="input w50" name="shopName" data-validate="required:请输入真实姓名"  th:value="${manage.shopName}"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label"><label>店铺描述：</label></div>
+                <div class="field">
+                    <input type="text" class="input w50" name="description" data-validate="required:请输入真实姓名"  th:value="${manage.description}"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="label"></div>
+                <div class="field">
+                    <button id="btn" class="button bg-main icon-check-square-o" type="submit">保存</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+<script>
+    $("#btn").click(function(){
+        alert("信息保存成功")
+    })
+</script>
+</html>

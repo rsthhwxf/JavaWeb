@@ -139,7 +139,7 @@ public class Item implements Serializable{
      * 评论列表
      */
     @TableField(exist = false)
-    private List<Comment> pls;
+    private List<Comment> comments;
 
 
 }

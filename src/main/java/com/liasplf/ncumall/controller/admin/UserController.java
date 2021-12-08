@@ -1,4 +1,4 @@
-package com.liasplf.ncumall.controller;
+package com.liasplf.ncumall.controller.admin;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -62,7 +62,7 @@ public class UserController {
         User user = userService.getById(id);
         user.setIsDelete(1);
         userService.updateById(user);
-        return "redirect:/user/listUser";
+        return "redirect:/admin/user/listUser";
     }
 
     @RequestMapping("/update")
@@ -75,7 +75,7 @@ public class UserController {
     @RequestMapping("/userUpdate")
     public String userUpdate(User user){
         userService.updateById(user);
-        return "redirect:/user/listUser";
+        return "redirect:/admin/user/listUser";
     }
 
 

@@ -20,4 +20,11 @@ public class ManageServiceImpl extends ServiceImpl<ManageDao, Manage> implements
             return this.baseMapper.selectList(new QueryWrapper<Manage>().eq("isDelete",0).like("shopName",shopName));
         }
     }
+
+    //注册商家
+    @Override
+    public Manage searchByName(String userName) {
+        Manage manage = this.baseMapper.selectOne(new QueryWrapper<Manage>().eq("userName", userName));
+        return manage;
+    }
 }

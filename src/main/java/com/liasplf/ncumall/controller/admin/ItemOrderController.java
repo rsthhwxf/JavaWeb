@@ -1,4 +1,4 @@
-package com.liasplf.ncumall.controller;
+package com.liasplf.ncumall.controller.admin;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -61,7 +61,7 @@ public class ItemOrderController {
         ItemOrder order =itemOrderService.getById(id);
         order.setStatus(2);
         itemOrderService.updateById(order);
-        return "redirect:/itemOrder/itemOrder";
+        return "redirect:/admin/itemOrder/listItemOrder";
     }
 
 }
