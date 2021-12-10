@@ -10,4 +10,5 @@ public interface ItemOrderService extends IService<ItemOrder> {
 
     List<ItemOrder> searchItemOrder(String code, Integer id);
 
+    List<ItemOrder> getItemOrderByUserId(Integer id);
 }

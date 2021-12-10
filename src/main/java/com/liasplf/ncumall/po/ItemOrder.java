@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -73,7 +74,7 @@ public class ItemOrder implements Serializable {
     private Integer manageId;
 
     @TableField(exist = false)
-    private List<OrderDetail> details;
+    private List<OrderDetail> details = new ArrayList<>();
 
 
 }

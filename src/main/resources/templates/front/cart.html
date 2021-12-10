@@ -49,7 +49,7 @@
     <div class="width1200 center_yh relative_yh" style="height: 45px;">
         <!--普通导航-->
         <div class="left_yh font16" id="pageNav">
-            <a th:href="@{/login/uIndex}">首页</a>
+            <a th:href="@{/index/uIndex}">首页</a>
 
         </div>
     </div>
@@ -104,7 +104,7 @@
 <div class="width1198 center_yh" style="height: 60px;background: #f0f0f0;border:1px solid #ddd;margin-top:40px;">
     <div class="center_yh hidden_yh" style="width: 1178px;height: 60px;margin-left: 20px;">
         <div class="ifAll"><b><img th:src="@{/user/images/xzwxz.png}"></b><font>全选</font></div>
-        <div class="ifDel">删除</div>
+        <div class="ifDel" >删除</div>
         <div class="sXd">
             <div class="sXd1">已选商品（<font style="color: #cb1c20">0</font> ）</div>
             <div class="sXd2">合计（不含运费）：￥<font style="color: #cb1c20" id="zjJg">0</font> </div>
@@ -198,8 +198,8 @@
         var id = $(this).attr("data-id");
         $.ajax({
             type:"POST",
-            url:"${ctx}/car/delete?id="+id,
-            contentType:"application/json",
+            url:"[[@{/cart/delete}]]",
+            data:{'id':id},
             success:function (result) {
             }
         });
@@ -211,11 +211,12 @@
     //批量删除
     $(".ifDel").click(function () {
         $(".xzWxz.on").each(function () {
-            var id = $(this).parent().attr("data-id");
+            var idx = $(this).parent().attr("data-id");
+            console.log(idx)
             $.ajax({
                 type:"POST",
-                url:"${ctx}/car/delete?id="+id,
-                contentType:"application/json",
+                url:"[[@{/cart/delete}]]",
+                data:{'id':idx},
                 success:function (result) {
                 }
             });
@@ -238,19 +239,22 @@
             obj.num = $num;
             arr.push(obj);
         });
+
         if(arr.length==0){
             alert("请至少选择一个商品结算");
             return false;
         }
+        console.log(arr)
         $.ajax({
             type:"POST",
-            url:"[[@{/itemOrder/exAdd}]]",
+            url:"[[@{/itemOrder/jiesuan}]]",
             data:JSON.stringify(arr),
+            dataType:'json',
             contentType:"application/json",
             success:function (result) {
                 if(result.res == 0){
                     alert("请登录");
-                    window.location.href="/login/uLogin";
+                    window.location.href="/user/uLogin";
                 }else if(result.res == 2){
                     alert("请编辑地址");
                 }else{

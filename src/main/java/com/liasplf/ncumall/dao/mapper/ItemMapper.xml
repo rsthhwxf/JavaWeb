@@ -15,12 +15,7 @@
         <result property="url4" column="url4" jdbcType="VARCHAR"/>
         <result property="url5" column="url5" jdbcType="VARCHAR"/>
         <result property="ms" column="ms" jdbcType="VARCHAR"/>
-        <result property="pam1" column="pam1" jdbcType="VARCHAR"/>
-        <result property="pam2" column="pam2" jdbcType="VARCHAR"/>
-        <result property="pam3" column="pam3" jdbcType="VARCHAR"/>
-        <result property="val1" column="val1" jdbcType="VARCHAR"/>
-        <result property="val2" column="val2" jdbcType="VARCHAR"/>
-        <result property="val3" column="val3" jdbcType="VARCHAR"/>
+
         <result property="type" column="type" jdbcType="INTEGER"/>
         <result property="categoryIdOne" column="category_id_one" jdbcType="INTEGER"/>
         <result property="categoryIdTwo" column="category_id_two" jdbcType="INTEGER"/>
@@ -28,7 +23,7 @@
         <result property="manageId" column="manage_id" jdbcType="INTEGER"/>
         <association property="yiji" column="category_id_one" select="com.liasplf.ncumall.mapper.ItemCategoryMapper.load"/>
         <association property="erji" column="category_id_two" select="com.liasplf.ncumall.mapper.ItemCategoryMapper.load"/>
-        <collection property="pls" column="id" ofType="com.liasplf.ncumall.po.Comment" select="com.liasplf.ncumall.mapper.CommentMapper.listByItemId"/>
+        <collection property="comments" column="id" ofType="com.liasplf.ncumall.po.Comment" select="com.liasplf.ncumall.mapper.CommentMapper.listByItemId"/>
     </resultMap>
 
 

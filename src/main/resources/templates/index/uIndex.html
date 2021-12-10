@@ -40,12 +40,6 @@
 <!--            <img th:src="@{/images/logo.png}" alt="" style="height: 70px">-->
             <h1 style="color: red">NCUMALL</h1>
         </a>
-        <div class="right_yh" style="height:28px;width:316px;border:2px solid #dd4545;margin-top:-40px;">
-            <form th:action="@{/item/searchItem}" method="post">
-                <input type="text" placeholder="关键词查询" class="search" name="condition" >
-                <input type="submit" class="btnSearh" value="搜索">
-            </form>
-        </div>
     </div>
 </div>
 <!--导航条-->
@@ -92,7 +86,7 @@
             <li><img th:src="@{/images/a.webp}" alt=""></li>
             <li><img th:src="@{/images/b.webp}" alt=""></li>
             <li><img th:src="@{/images/c.webp}" alt=""></li>
-            <li><img th:src="@{/images/d.webp}" alt=""></li>
+            <li><img th:src="@{/images/d1.webp}" alt=""></li>
         </ul>
     </div>
     <script>
@@ -116,7 +110,8 @@
                     <img th:src="${data.url1}" width="105" height="118" alt="" style="margin:0 auto">
                     <p class="red font14" style="padding-left: 10px;" th:text="'价格￥：'+${data.price}+'元'"></p>
                     <h3 class="yihang c_33 font14 font100" style="padding-left: 10px;padding-right: 10px;" th:text="'商品名称:'+${data.name}"></h3>
-                    <div th:text="'商品描述:'+${#strings.abbreviate(data.ms,20)}"></div>
+                    <br>
+                    <p style="color: #1f637b" th:text="'商品描述:'+${#strings.abbreviate(data.ms,20)}"></p>
                 </a>
             </div>
         </div>
@@ -137,7 +132,8 @@
                     <img th:src="${data.url1}" width="105" height="118" alt="" style="margin:0 auto">
                     <p class="red font14" style="padding-left: 10px;" th:text="'价格￥'+${data.price}+'元'"></p>
                     <h3 class="yihang c_33 font14 font100" style="padding-left: 10px;padding-right: 10px;" th:text="'商品名称：'+${data.name}"></h3>
-                    <div th:text="'商品描述:'+${#strings.abbreviate(data.ms,20)}"></div>
+                    <br>
+                    <p style="color: #1f637b" th:text="'商品描述:'+${#strings.abbreviate(data.ms,20)}"></p>
                 </a>
             </div>
 

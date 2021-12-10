@@ -36,10 +36,19 @@
             <td th:text="${data.userName}"></td>
             <td th:text="${data.phone}"></td>
             <td th:text="${data.realName}"></td>
-            <td th:text="${data.sex}"></td>
+            <td th:text="${data.sex}">
+                <span th:if="${data.status==0}">女</span>
+                <span th:if="${data.status==1}">男</span>
+            </td>
+
             <td th:text="${data.email}"></td>
             <td th:text="${data.address}"></td>
-            <td th:text="${data.status}"></td>
+            <td>
+                <span th:if="${data.status==0}">普通用户</span>
+                <span th:if="${data.status==1}">铜牌会员</span>
+                <span th:if="${data.status==2}">银牌会员</span>
+                <span th:if="${data.status==3}">金牌会员</span>
+            </td>
             <td>
                 <a class="button border-main orange" th:href="@{/admin/user/update(id=${data.id})}"><span class="icon-edit">修改</span> </a>
                 <a class="button border-red" th:href="@{/admin/user/delete(id=${data.id})}"><span class="icon-trash-o">删除</span> </a>

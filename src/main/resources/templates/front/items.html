@@ -84,18 +84,13 @@
                 </a>
                 <h3 class="spName" th:text="${data.name}"></h3>
                 <p class="center_yh block_yh hidden_yh" style="width: 202px;">
-                    <font class="left_yh red font16" th:text="'￥'+${data.price}"></font>
-                    <div th:if="${data.zk!=-1}">
-                        <font class="right_yh font14" th:text="${data.zk}">
-
-                            <span style="color: red">折</span>
-                        </font>
-                    </div>
-
+                    <font class="left_yh red font16" th:text="'￥'+${data.price}+'   特价：'+${data.zk}+'折'"></font>
                 </p>
+                <br>
+                <p style="color: #1f637b" th:text="'&nbsp;&nbsp;&nbsp;&nbsp;商品描述:'+${#strings.abbreviate(data.ms,20)}"></p>
                 <div class="wCa">
 
-                    <div class="wCa2" onclick="addcar('${data.id}')">
+                    <div class="wCa2" th:onclick="addcar(${data.id})">
                         <b><img th:src="@{/user/images/sar.png}" alt=""></b>
                         <font>加入购物车</font>
                     </div>
@@ -153,9 +148,9 @@
                 var re = result;
                 if(re.res == 0){
                     alert("请登录");
-                    window.location.href="${ctx}/login/uLogin";
+                    window.location.href="/user/uLogin";
                 }else {
-                    window.location.href="${ctx}/car/findBySql";
+                    window.location.href="/cart/myCart";
                 }
             }
         });

@@ -70,4 +70,11 @@ public class UserCartController{
         js.put(Consts.RES,1);
         return js.toJSONString();
     }
+
+    @RequestMapping("/delete")
+    @ResponseBody
+    public void delete(String id){
+        System.out.println(id);
+        cartService.removeById(id);
+    }
 }

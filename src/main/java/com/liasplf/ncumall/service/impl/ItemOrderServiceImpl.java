@@ -45,4 +45,9 @@ public class ItemOrderServiceImpl extends ServiceImpl<ItemOrderDao,ItemOrder> im
         }
         return orderList;
     }
+
+    @Override
+    public List<ItemOrder> getItemOrderByUserId(Integer id) {
+        return this.baseMapper.selectList(new QueryWrapper<ItemOrder>().eq("isDelete",0).eq("user_id",id));
+    }
 }

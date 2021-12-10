@@ -35,9 +35,14 @@
             <td th:text="${#dates.format(data.addTime,'yyyy-MM-dd HH:mm')}"></td>
             <td th:text="${data.total}"></td>
             <td th:text="${data.user.userName}"></td>
-            <td th:text="${data.status}"></td>
             <td>
-                <a class="button border-main" th:href="@{/admin/itemOrder/update(id=${data.id})}"><span class="icon-search">查看购买商品</span> </a>
+                <span th:if="${data.status==0}">待发货</span>
+                <span th:if="${data.status==1}">已取消</span>
+                <span th:if="${data.status==2}">待收货</span>
+                <span th:if="${data.status==3}">已收货</span>
+            </td>
+            <td>
+                <a class="button border-main" th:href="@{/admin/itemOrder/viewOrderItem(id=${data.id})}"><span class="icon-search">查看购买商品</span> </a>
                 <a th:if="${data.status==0}" class="button border-green" th:href="@{/admin/itemOrder/send(id=${data.id})}"><span class="icon-edit">发货</span> </a>
             </td>
         </tr>

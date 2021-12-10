@@ -72,10 +72,10 @@
             </div>
             <div id="spec-list" style="margin-top: 5px;">
                 <ul class="list-h">
-                    <li th:if="${item.url2==null}"><img th:src="${item.url2}" height="80" width="80"></li>
-                    <li th:if="${item.url3==null}"><img th:src="${item.url3}" height="80" width="80"></li>
-                    <li th:if="${item.url4==null}"><img th:src="${item.url4}" height="80" width="80"></li>
-                    <li th:if="${item.url5==null}"><img th:src="${item.url5}" height="80" width="80"></li>
+                    <li th:if="${item.url2!=null}"><img th:src="${item.url2}" height="80" width="80"></li>
+                    <li th:if="${item.url3!=null}"><img th:src="${item.url3}" height="80" width="80"></li>
+                    <li th:if="${item.url4!=null}"><img th:src="${item.url4}" height="80" width="80"></li>
+                    <li th:if="${item.url5!=null}"><img th:src="${item.url5}" height="80" width="80"></li>
                 </ul>
             </div>
         </div>
@@ -184,7 +184,7 @@
                     var re = result;
                     if(re.res == 0){
                         alert("请登录");
-                        window.location.href="/login/uLogin";
+                        window.location.href="/user/uLogin";
                     }else {
                         window.location.href="/cart/myCart";
                     }

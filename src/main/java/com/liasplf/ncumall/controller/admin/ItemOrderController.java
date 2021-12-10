@@ -63,5 +63,12 @@ public class ItemOrderController {
         itemOrderService.updateById(order);
         return "redirect:/admin/itemOrder/listItemOrder";
     }
+    @RequestMapping("/viewOrderItem")
+    public String viewOrderItem(Integer id,Model model){
+        ItemOrder itemOrder = itemOrderService.getById(id);
+
+        //分页查询
+        return "itemOrder/itemOrder";
+    }
 
 }
