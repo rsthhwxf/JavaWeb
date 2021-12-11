@@ -1,13 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>用户登录</title>
-    <link type="text/css" rel="stylesheet" th:href="@{/user/css/style.css}">
-    <script th:src="@{/user/js/jquery-1.8.3.min.js}"></script>
-    <script th:src="@{/user/js/jquery.luara.0.0.1.min.js}"></script>
-</head>
+<head th:replace="common/uHead :: head"></head>
 <body>
-<div class="width100 hidden_yh" style="height: 573px;background: url('/user/images/bj.jpg') no-repeat center">
+<div class="width100 hidden_yh" style="height: 573px;background: url('/user/images/bg.jpg') no-repeat center">
     <div class="width1200 hidden_yh center_yh" style="margin-top: 75px">
         <div class="right_yh bj_fff" style="width:408px;height: 438px;">
             <form th:action="@{/user/utoLogin}" method="post">
@@ -30,17 +25,7 @@
         </div>
     </div>
 </div>
-<div class="width1200 center_yh" style="height: 130px;margin-top: 60px;">
-    <img th:src="@{/user/images/db.png}" alt="">
-</div>
-<!--页脚-->
-<div class="width100 hidden_yh" style="background: #f0f0f0;margin-top: 90px;">
-    <div class="width1200 center_yh tcenter" >
-        <div class="font16 c_33 tcenter" style="margin-top: 6px;">www.ncumall.com © Copyright NCUMALL 2021-2022</div>
-        <div class="font16 c_33 tcenter" style="margin-top: 6px;">电话：010-00000000 手机：13812345678</div>
-        <div class="font16 c_33 tcenter" style="margin-top: 6px;">京公网安备 xxxxxxxxxx号 </div>
-    </div>
-</div>
+<div th:replace="common/uFooter :: footer"></div>
 </body>
 </html>
 

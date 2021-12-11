@@ -1,58 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>首页</title>
-    <link type="text/css" rel="stylesheet" th:href="@{/user/css/style.css}">
-    <script th:src="@{/user/js/jquery-1.8.3.min.js}"></script>
-    <script th:src="@{/user/js/jquery.luara.0.0.1.min.js}"></script>
-</head>
+<head th:replace="common/uHead :: head"></head>
 <body>
-<!--<div th:replace="uTop :: header"></div>-->
-<div class="width100" style="height: 25px;background: #f0f0f0;">
-    <div class="width1200 center_yh font14 c_66" style="height: 25px;line-height: 25px;">
-        <font class="left_yh">欢迎来到NCUMALL！</font>
-        <div class="right_yh" id="fast_jump">
-            <div th:if="${#request.getSession().getAttribute('user')!=null}">
-                <a href="#" th:text="${#request.getSession().getAttribute('username')}"></a>
-                <b></b>
-                <a th:href="@{/user/uExit}">退出</a>
-                <b></b>
-                <a th:href="@{/cart/myCart}">我的购物车</a>
-                <b></b>
-                <a th:href="@{/user/self}">个人中心</a>
-            </div>
-            <div th:if="${#request.getSession().getAttribute('user')==null}">
-                <a th:href="@{/user/uLogin}">登录</a>
-                <b></b>
-                <a th:href="@{/user/uRegis}">注册</a>
-                <b></b>
-                <a th:href="@{/manage/becomeManage}">成为商家</a>
-                <b></b>
-                <a th:href="@{/admin/login/login}">店铺管理</a>
-            </div>
-
-        </div>
-    </div>
-</div>
-<div class="width100 hidden_yh">
-    <div class="width1200 center_yh hidden_yh">
-        <a href="#" class="block_yh left_yh">
-<!--            <img th:src="@{/images/logo.png}" alt="" style="height: 70px">-->
-            <h1 style="color: red">NCUMALL</h1>
-        </a>
-    </div>
-</div>
+<div th:replace="common/uTop :: header"></div>
 <!--导航条-->
-<div class="width100" style="height: 45px;background: #dd4545;margin-top: 40px;position: relative;z-index: 100;">
+<div class="width100" style="height: 45px;background: #dd2e1e !important;margin-top: 40px;position: relative;z-index: 100;">
     <!--中间的部分-->
     <div class="width1200 center_yh relative_yh" style="height: 45px;">
         <!--列表导航-->
-        <div class="left_yh Selected" style="width: 230px;height: 45px;" id="hiddenShow">
+        <div class="left_yh Selected" style="background-color:#dd2e1e;width: 230px;height: 45px;" id="hiddenShow">
             <!--头部的图标-->
             <img th:src="@{/user/images/cd.png}" class="left_yh" style="margin-left: 24px;" alt="">
             <span class="block_yh left_yh fff" style="height: 45px;line-height: 44px;margin-left: 10px;">分类</span>
             <!--导航展开部分-->
-            <div class="downSlide">
+            <div style="background-color:#dd2e1e;" class="downSlide">
                 <div th:each="data:${lbs}">
                     <div class="n1Nav">
                         <font th:text="${data.father.name}"></font>
@@ -70,7 +31,7 @@
             </div>
         </div>
         <!--普通导航-->
-        <div class="left_yh font16" id="pageNav">
+        <div class="left_yh font16"  id="pageNav">
             <a th:href="@{/index/uIndex}">首页</a>
             <a href="#">待扩展1</a>
             <a href="#">待扩展2</a>
@@ -79,13 +40,26 @@
         </div>
     </div>
 </div>
+<!--<div>-->
+<!--    <img style="width: 250px;height:300px;position: absolute;left: 0;top: 300px" class="float-left" th:src="@{/images/left.jpg}" alt="">-->
+<!--    <img style="width: 250px;height:300px;position: absolute;right: 0;top: 300px" class="float-right" th:src="@{/images/right.jpg}" alt="">-->
+<!--</div>-->
+<div id="left_layer" style="position:fixed; top:200px; left:0px;">
+    <img style="width: 250px;height:400px;" th:src="@{/images/left.jpg}"><br>
+    <a href="javascript:;" style="position:fixed;left:0px;color: black" onclick="javascript:document.getElementById('left_layer').style.display='none';">关闭</a>
+</div>
+
+<div id="right_layer" style="position:fixed; top:200px; right:0px;">
+    <img style="width: 250px;height:400px;" th:src="@{/images/right.jpg}"><br>
+    <a href="javascript:;" style="position:fixed;right:0px;color: black" onclick="javascript:document.getElementById('right_layer').style.display='none';">关闭</a>
+</div>
 <!--轮动广告-->
 <div class="width1200 center_yh hidden_yh" style="position: relative;z-index:80;">
     <div class="example2" style="width: 1200px;height: 490px;overflow: hidden;margin-left: 230px;">
         <ul>
-            <li><img th:src="@{/images/a.webp}" alt=""></li>
-            <li><img th:src="@{/images/b.webp}" alt=""></li>
-            <li><img th:src="@{/images/c.webp}" alt=""></li>
+            <li><img th:src="@{/images/a1.webp}" alt=""></li>
+            <li><img th:src="@{/images/b1.webp}" alt=""></li>
+            <li><img th:src="@{/images/c1.webp}" alt=""></li>
             <li><img th:src="@{/images/d1.webp}" alt=""></li>
         </ul>
     </div>
@@ -95,6 +69,7 @@
         });
     </script>
 </div>
+
 <br>
 <br>
 <hr color="red">
@@ -140,17 +115,12 @@
         </div>
     </div>
 </div>
-<!--<div th:replace="uFooter :: html"></div>-->
-<div class="width1200 center_yh" style="height: 130px;margin-top: 60px;">
-    <img th:src="@{/user/images/db.png}" alt="">
-</div>
-<!--页脚-->
-<div class="width100 hidden_yh" style="background: #f0f0f0;margin-top: 90px;">
-    <div class="width1200 center_yh tcenter" >
-        <div class="font16 c_33 tcenter" style="margin-top: 6px;">www.ncumall.com © Copyright NCUMALL 2021-2022</div>
-        <div class="font16 c_33 tcenter" style="margin-top: 6px;">电话：010-00000000 手机：13812345678</div>
-        <div class="font16 c_33 tcenter" style="margin-top: 6px;">京公网安备 xxxxxxxxxx号 </div>
-    </div>
-</div>
+
+<br>
+<br>
+<br>
+<hr color="red">
+
+<div th:replace="common/uFooter :: footer"></div>
 </body>
 </html>
