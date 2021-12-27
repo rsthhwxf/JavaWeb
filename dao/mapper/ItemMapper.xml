@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liasplf.ncumall.dao.ItemDao">
+    <!--实体类与数据库映射字段部分-->
+    <resultMap id="ResultMapItem" type="com.liasplf.ncumall.po.Item">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="price" column="price" jdbcType="VARCHAR"/>
+        <result property="zk" column="zk" jdbcType="INTEGER"/>
+        <result property="scNum" column="scNum" jdbcType="INTEGER"/>
+        <result property="gmNum" column="gmNum" jdbcType="INTEGER"/>
+        <result property="url1" column="url1" jdbcType="VARCHAR"/>
+        <result property="url2" column="url2" jdbcType="VARCHAR"/>
+        <result property="url3" column="url3" jdbcType="VARCHAR"/>
+        <result property="url4" column="url4" jdbcType="VARCHAR"/>
+        <result property="url5" column="url5" jdbcType="VARCHAR"/>
+        <result property="ms" column="ms" jdbcType="VARCHAR"/>
+
+        <result property="type" column="type" jdbcType="INTEGER"/>
+        <result property="categoryIdOne" column="category_id_one" jdbcType="INTEGER"/>
+        <result property="categoryIdTwo" column="category_id_two" jdbcType="INTEGER"/>
+        <result property="isDelete" column="isDelete" jdbcType="INTEGER"/>
+        <result property="manageId" column="manage_id" jdbcType="INTEGER"/>
+        <association property="yiji" column="category_id_one" select="com.liasplf.ncumall.mapper.ItemCategoryMapper.load"/>
+        <association property="erji" column="category_id_two" select="com.liasplf.ncumall.mapper.ItemCategoryMapper.load"/>
+        <collection property="comments" column="id" ofType="com.liasplf.ncumall.po.Comment" select="com.liasplf.ncumall.mapper.CommentMapper.listByItemId"/>
+    </resultMap>
+
+
+</mapper>
