@@ -14,6 +14,7 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String url = request.getRequestURI();
+        System.out.println("*"+url);
         if("/admin/login/login".equals(url) || "/admin/login/toLogin".equals(url))return true;
         else if(url.startsWith("/admin")){
             HttpSession session = request.getSession();

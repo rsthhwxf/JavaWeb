@@ -2,6 +2,7 @@ package rsthh.wxf.mall.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import rsthh.wxf.mall.dao.ItemDao;
 import rsthh.wxf.mall.po.Item;
 import rsthh.wxf.mall.service.ItemService;
@@ -12,6 +13,8 @@ import java.util.List;
 
 @Service
 public class ItemServiceImpl extends ServiceImpl<ItemDao, Item> implements ItemService {
+
+
 
     @Override
     public List<Item> getItemList(){

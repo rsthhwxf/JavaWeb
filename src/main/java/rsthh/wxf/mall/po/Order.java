@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -19,14 +20,16 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Order{
-    private int id;
+@Component
+public class Order implements Serializable {
+    @TableId
+    private Integer id;
     private double price;
     private int num;
-    private int itemId;
-    private int userId;
+    private Integer itemId;
+    private Integer userId;
     private int status;
     private String item_name;
-    private int manageId;
+    private Integer manageId;
     private String image;
 }

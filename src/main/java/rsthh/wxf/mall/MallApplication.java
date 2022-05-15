@@ -4,10 +4,12 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+
 @SpringBootApplication
-@MapperScan("rsthh.wxf.mall.dao")
-public class NcumallApplication {
+//@MapperScan("rsthh.wxf.mall.dao")
+@MapperScan(basePackages = "rsthh.wxf.mall.dao")
+public class MallApplication {
     public static void main(String[] args) {
-        SpringApplication.run(NcumallApplication.class, args);
+        SpringApplication.run(MallApplication.class, args);
     }
 }

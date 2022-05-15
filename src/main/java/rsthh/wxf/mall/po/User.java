@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.stereotype.Component;
 
 
 import java.io.Serializable;
@@ -18,12 +19,15 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User{
-    private int id;
+@ToString
+@Component
+public class User implements Serializable {
+    @TableId
+    private Integer id;
     private String username;
     private String password;
     private String phone;
-    private String realName;
+    private String realname;
     private String sex;
     private String address;
     private String email;

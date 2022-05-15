@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -18,12 +19,14 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Comment{
-    private int id;
+@Component
+public class Comment implements Serializable {
+    @TableId
+    private Integer id;
     private String content;
     private String username;
-    private int userId;
-    private int itemId;
+    private Integer userId;
+    private Integer itemId;
     private Date addTime;
 
 

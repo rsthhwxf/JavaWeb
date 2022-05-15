@@ -27,15 +27,15 @@ public class OrderController {
     private OrderService orderService;
     @Autowired
     private OrderDetailService orderDetailService;
-    @Autowired
-    private ItemService itemService;
 
 
     @GetMapping("/list")
-    public String myOrder(HttpServletRequest httpServletRequest) throws Exception {
+    public String myOrder(@RequestBody Map map, HttpServletRequest httpServletRequest) throws Exception {
         Map returnData = new HashMap();
         Integer userID = TokenUtil.getIDByRequest(httpServletRequest);
-        List<Order> list = orderService.getOrderByUserId(userID);
+        int pageNum=(int)map.get("pageNum");
+        int pageSize=(int)map.get("pageSize");
+        List<Order> list = orderService.getOrderByUserId(userID,pageNum,pageSize);
         returnData.put("status", 0);
         returnData.put("msg", "成功!");
         returnData.put("data", list);
@@ -67,6 +67,29 @@ public class OrderController {
             returnData.put("status",1);
             returnData.put("data", "");
         }
+        return JsonUtil.toJson(returnData);
+    }
+
+    @PostMapping
+    public String receive(@RequestBody Map map, HttpServletRequest httpServletRequest) throws Exception {
+        Integer userID = TokenUtil.getIDByRequest(httpServletRequest);
+        Map returnData = new HashMap();
+        Integer orderID = (Integer) map.get("orderID");
+        Order order = orderService.getById(orderID);
+        if(order==null){
+            returnData.put("msg", "订单不存在!");
+            returnData.put("status",1);
+            returnData.put("data", "");
+        }
+        if(userID==order.getUserId()){
+            returnData.put("status",1);
+            returnData.put("msg", "用户无权访问!");
+            returnData.put("data", "");
+        }
+        orderService.updateStatus(orderID);
+        returnData.put("status", 0);
+        returnData.put("msg", "成功!");
+        returnData.put("data", "");
         return JsonUtil.toJson(returnData);
     }
 }

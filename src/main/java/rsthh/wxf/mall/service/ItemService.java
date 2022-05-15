@@ -5,11 +5,12 @@ import rsthh.wxf.mall.po.Item;
 
 import java.util.List;
 
+
 public interface ItemService extends IService<Item> {
 
-    List<Item> searchItem(String keyword);
+    public List<Item> searchItem(String keyword);
 
 
-    List<Item> getItemList();
+    public List<Item> getItemList();
 
 }

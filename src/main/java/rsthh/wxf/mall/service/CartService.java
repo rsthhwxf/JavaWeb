@@ -7,9 +7,9 @@ import rsthh.wxf.mall.po.Cart;
 import java.util.List;
 
 public interface CartService extends IService<Cart> {
-    List<Cart> getCarts(Integer userID);
+    public List<Cart> getCarts(Integer userID);
 
-    Cart getCartByItem(Integer itemID, Integer userID);
+    public Cart getCartByItem(Integer itemID, Integer userID);
 
-    void updateCartNum(Integer itemID,int num);
+    public void updateCartNum(Integer itemID,int num);
 }

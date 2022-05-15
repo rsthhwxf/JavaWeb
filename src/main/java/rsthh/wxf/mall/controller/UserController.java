@@ -54,6 +54,7 @@ public class UserController {
     public String UserRegister(@RequestBody User user) {
         Map returnData = new HashMap<>();
         user.setUserType(1);
+        user.setIsDelete(0);
         if (userService.getByUsername(user.getUsername())!=null) {
             userService.save(user);
             return DataEcho.NoDataSuccess();

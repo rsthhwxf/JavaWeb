@@ -1,15 +1,16 @@
 package rsthh.wxf.mall.controller;
 
 
-import rsthh.wxf.mall.po.Item;
-import rsthh.wxf.mall.po.ItemDetail;
-import rsthh.wxf.mall.service.CommentService;
-import rsthh.wxf.mall.service.ItemDetailService;
-import rsthh.wxf.mall.service.ItemService;
+import rsthh.wxf.mall.po.*;
+import rsthh.wxf.mall.service.*;
+import rsthh.wxf.mall.utils.DataEcho;
 import rsthh.wxf.mall.utils.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import rsthh.wxf.mall.utils.TokenUtil;
+import rsthh.wxf.mall.utils.UUIDUtils;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,12 +19,24 @@ import java.util.Map;
 @RequestMapping("/user/item")
 public class ItemController {
 
+
     @Autowired
     private ItemService itemService;
+
     @Autowired
     private CommentService commentService;
     @Autowired
     private ItemDetailService itemDetailService;
+
+    @Autowired
+    private OrderService orderService;
+
+    @Autowired
+    private OrderDetailService orderDetailService;
+
+    @Autowired
+    private UserService userService;
+
 
     @PostMapping("/detail")
     public String itemInfo(@RequestBody Map map){
@@ -62,5 +75,45 @@ public class ItemController {
         returnData.put("msg", "成功!");
         returnData.put("data", itemList);
         return JsonUtil.toJson(returnData);
+    }
+
+    @PostMapping("/buy")
+    public String buyOne(@RequestBody Map map,HttpServletRequest request) throws Exception {
+        Map returnData = new HashMap();
+        Integer userID = TokenUtil.getIDByRequest(request);
+        User user = userService.getById(userID);
+        if (user.getAddress()=="") {
+            returnData.put("status", "1");
+            returnData.put("msg", "请填写收货地址!");
+            returnData.put("data", "");
+            return JsonUtil.toJson(returnData);
+        }
+        Integer itemID = (Integer) map.get("itemID");
+        Item item = itemService.getById(itemID);
+        Order order = new Order();
+        order.setItemId(itemID);
+        order.setUserId(user.getId());
+        order.setManageId(item.getManageId());
+        order.setPrice(item.getPrice());
+        order.setNum(1);
+        order.setStatus(1);
+        order.setItem_name(item.getItemName());
+        order.setImage(item.getImage());
+        orderService.save(order);
+
+        OrderDetail orderDetail = new OrderDetail();
+        orderDetail.setCode(UUIDUtils.create());
+        orderDetail.setImage(item.getImage());
+        orderDetail.setNum(1);
+        orderDetail.setManageId(item.getManageId());
+        orderDetail.setAddress(user.getAddress());
+        orderDetail.setItemName(item.getItemName());
+        orderDetail.setPhone(user.getPhone());
+        orderDetail.setPrice(item.getPrice());
+        orderDetail.setItemId(item.getId());
+        orderDetail.setUserId(item.getId());
+        orderDetailService.save(orderDetail);
+
+        return DataEcho.NoDataSuccess();
     }
 }

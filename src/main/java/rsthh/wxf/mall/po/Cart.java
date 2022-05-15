@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 
@@ -17,14 +18,15 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Cart{
-
-    private int id;
+@Component
+public class Cart implements Serializable {
+    @TableId
+    private Integer id;
     private String name;
     private int num;
     private double price;
-    private int itemId;
-    private int userId;
-    private int manageId;
+    private Integer itemId;
+    private Integer userId;
+    private Integer manageId;
     private String image;
 }

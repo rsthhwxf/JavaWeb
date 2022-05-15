@@ -9,7 +9,7 @@ import rsthh.wxf.mall.utils.TokenUtil;
 import rsthh.wxf.mall.utils.UUIDUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.thymeleaf.util.StringUtils;
+
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -108,7 +108,7 @@ public class CartController {
         Map returnData = new HashMap();
         Integer userID = TokenUtil.getIDByRequest(request);
         User user = userService.getById(userID);
-        if (StringUtils.isEmpty(user.getAddress())) {
+        if (user.getAddress()=="") {
             returnData.put("status", "1");
             returnData.put("msg", "请填写收货地址!");
             returnData.put("data", "");
