@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="rsthh.wxf.mall.dao.UserDao">
+<!--    &lt;!&ndash;实体类与数据库映射字段部分&ndash;&gt;-->
+<!--    <resultMap id="ResultMapUser" type="rsthh.wxf.mall.po.User">-->
+<!--        <result property="id" column="id" jdbcType="INTEGER"/>-->
+<!--        <result property="username" column="username" jdbcType="VARCHAR"/>-->
+<!--        <result property="password" column="password" jdbcType="VARCHAR"/>-->
+<!--        <result property="phone" column="phone" jdbcType="VARCHAR"/>-->
+<!--        <result property="realname" column="realname" jdbcType="VARCHAR"/>-->
+<!--        <result property="sex" column="sex" jdbcType="VARCHAR"/>-->
+<!--        <result property="address" column="address" jdbcType="VARCHAR"/>-->
+<!--        <result property="email" column="email" jdbcType="VARCHAR"/>-->
+<!--        <result property="isDelete" column="is_delete" jdbcType="INTEGER"/>-->
+<!--        <result property="userType" column="user_type" jdbcType="INTEGER"/>-->
+<!--    </resultMap>-->
+
+</mapper>
