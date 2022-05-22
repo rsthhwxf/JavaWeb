@@ -22,7 +22,7 @@ import java.util.List;
 @ToString
 @Component
 public class User implements Serializable {
-    @TableId
+    @TableId(type = IdType.AUTO)
     private Integer id;
     private String username;
     private String password;

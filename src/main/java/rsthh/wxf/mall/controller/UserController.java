@@ -1,13 +1,16 @@
 package rsthh.wxf.mall.controller;
 
 
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.SetOperations;
 import rsthh.wxf.mall.po.User;
 import rsthh.wxf.mall.service.UserService;
 import rsthh.wxf.mall.utils.DataEcho;
 import rsthh.wxf.mall.utils.JsonUtil;
-import rsthh.wxf.mall.utils.TokenUtil;
+import rsthh.wxf.mall.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import rsthh.wxf.mall.utils.ThreadLocalUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -20,6 +23,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @PostMapping("/login")
     public String UserLogin(@RequestBody Map map) {
@@ -37,7 +42,7 @@ public class UserController {
             returnData.put("msg", "用户名不存在!");
             returnData.put("data", "");
         } else if (user.getPassword().equals(password)) {
-            String token = TokenUtil.getToken(user);
+            String token = JwtUtil.getToken(user.getId());
             returnData.put("status", 0);
             returnData.put("msg", "成功!");
             returnData.put("data", token);
@@ -49,13 +54,21 @@ public class UserController {
         return JsonUtil.toJson(returnData);
     }
 
+    @PostMapping("/logout")
+    public String UserLogout(HttpServletRequest httpServletRequest) throws Exception {
+        String tokenStr = httpServletRequest.getHeader("token");
+        SetOperations<String, String> set = redisTemplate.opsForSet();
+        set.add("blackList",tokenStr);
+        return DataEcho.NoDataSuccess();
+    }
+
     //注册映射
     @PostMapping("/register")
     public String UserRegister(@RequestBody User user) {
         Map returnData = new HashMap<>();
         user.setUserType(1);
         user.setIsDelete(0);
-        if (userService.getByUsername(user.getUsername())!=null) {
+        if (userService.getByUsername(user.getUsername())==null) {
             userService.save(user);
             return DataEcho.NoDataSuccess();
         }
@@ -68,12 +81,7 @@ public class UserController {
     @GetMapping("/info")
     public String UserInfo(HttpServletRequest httpServletRequest) throws Exception {
         Map returnData = new HashMap<>();
-        Integer userID = TokenUtil.getIDByRequest(httpServletRequest);
-        if (userID == null) {
-            return DataEcho.NoAuthority();
-        }
-        User user = null;
-        user = userService.getById(userID);
+        User user = ThreadLocalUtil.getUser();
         returnData.put("status", 0);
         returnData.put("msg", "成功!");
         returnData.put("data", user);
@@ -82,11 +90,6 @@ public class UserController {
 
     @PostMapping("/updateInfo")
     public String updateInfo(@RequestBody User user, HttpServletRequest httpServletRequest) throws Exception {
-        Map returnData = new HashMap<>();
-        Integer userID = TokenUtil.getIDByRequest(httpServletRequest);
-        if (userID == null) {
-            return DataEcho.NoAuthority();
-        }
         userService.updateById(user);
         return DataEcho.NoDataSuccess();
     }

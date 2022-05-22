@@ -3,10 +3,7 @@ package rsthh.wxf.mall.controller;
 
 import rsthh.wxf.mall.po.*;
 import rsthh.wxf.mall.service.*;
-import rsthh.wxf.mall.utils.DataEcho;
-import rsthh.wxf.mall.utils.JsonUtil;
-import rsthh.wxf.mall.utils.TokenUtil;
-import rsthh.wxf.mall.utils.UUIDUtils;
+import rsthh.wxf.mall.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,8 +31,7 @@ public class CartController {
     @GetMapping("/myCart")
     public String myCart(HttpServletRequest httpServletRequest) throws Exception {
         Map returnData = new HashMap<>();
-        Integer userID = null;
-        userID = TokenUtil.getIDByRequest(httpServletRequest);
+        Integer userID = ThreadLocalUtil.getUser().getId();
         List<Cart> cartList = cartService.getCarts(userID);
         Map data = new HashMap<>();
         data.put("cartList", cartList);
@@ -49,8 +45,7 @@ public class CartController {
     @PostMapping("/add")
     public String addItem(@RequestBody Map map, HttpServletRequest httpServletRequest) throws Exception {
         Map returnData = new HashMap<>();
-        Integer userID = null;
-        userID = TokenUtil.getIDByRequest(httpServletRequest);
+        Integer userID = ThreadLocalUtil.getUser().getId();
         Integer itemID = (Integer) map.get("itemID");
         Item item = null;
         item = itemService.getById(itemID);
@@ -81,8 +76,7 @@ public class CartController {
     @PostMapping("/delete")
     public String deleteItem(@RequestBody Map map, HttpServletRequest httpServletRequest) throws Exception {
         Map returnData = new HashMap<>();
-        Integer userID = null;
-        userID = TokenUtil.getIDByRequest(httpServletRequest);
+        Integer userID = ThreadLocalUtil.getUser().getId();
         Integer itemID = (Integer) map.get("itemID");
         Item item = itemService.getById(itemID);
         if (item == null) {
@@ -106,8 +100,7 @@ public class CartController {
     @PostMapping("/buy")
     public String exAdd(@RequestBody List<Integer> list, HttpServletRequest request) throws Exception {
         Map returnData = new HashMap();
-        Integer userID = TokenUtil.getIDByRequest(request);
-        User user = userService.getById(userID);
+        User user = ThreadLocalUtil.getUser();
         if (user.getAddress()=="") {
             returnData.put("status", "1");
             returnData.put("msg", "请填写收货地址!");
@@ -119,7 +112,7 @@ public class CartController {
             if (cart == null) continue;
             Integer itemID = cart.getItemId();
             Item item = itemService.getById(itemID);
-            Order order = new Order();
+            Orders order = new Orders();
             order.setItemId(itemID);
             order.setUserId(user.getId());
             order.setManageId(item.getManageId());

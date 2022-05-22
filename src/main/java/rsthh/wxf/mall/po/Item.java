@@ -21,7 +21,7 @@ import java.util.List;
 @ToString
 @Component
 public class Item implements Serializable {
-    @TableId
+    @TableId(type = IdType.AUTO)
     private Integer id;
     private String itemName;
     private double price;

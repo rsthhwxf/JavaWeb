@@ -3,12 +3,9 @@ package rsthh.wxf.mall.controller;
 
 import rsthh.wxf.mall.po.*;
 import rsthh.wxf.mall.service.*;
-import rsthh.wxf.mall.utils.DataEcho;
-import rsthh.wxf.mall.utils.JsonUtil;
+import rsthh.wxf.mall.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import rsthh.wxf.mall.utils.TokenUtil;
-import rsthh.wxf.mall.utils.UUIDUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -80,8 +77,7 @@ public class ItemController {
     @PostMapping("/buy")
     public String buyOne(@RequestBody Map map,HttpServletRequest request) throws Exception {
         Map returnData = new HashMap();
-        Integer userID = TokenUtil.getIDByRequest(request);
-        User user = userService.getById(userID);
+        User user = ThreadLocalUtil.getUser();
         if (user.getAddress()=="") {
             returnData.put("status", "1");
             returnData.put("msg", "请填写收货地址!");
@@ -90,7 +86,7 @@ public class ItemController {
         }
         Integer itemID = (Integer) map.get("itemID");
         Item item = itemService.getById(itemID);
-        Order order = new Order();
+        Orders order = new Orders();
         order.setItemId(itemID);
         order.setUserId(user.getId());
         order.setManageId(item.getManageId());

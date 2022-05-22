@@ -20,7 +20,7 @@ import java.io.Serializable;
 @ToString
 @Component
 public class Cart implements Serializable {
-    @TableId
+    @TableId(type = IdType.AUTO)
     private Integer id;
     private String name;
     private int num;

@@ -1,13 +1,13 @@
 package rsthh.wxf.mall.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import rsthh.wxf.mall.po.Order;
+import rsthh.wxf.mall.po.Orders;
 
 import java.util.List;
 
-public interface OrderService extends IService<Order> {
+public interface OrderService extends IService<Orders> {
 
-    public List<Order> getOrderByUserId(Integer id,int pageNum,int pageSize);
+    public List<Orders> getOrderByUserId(Integer id, int pageNum, int pageSize);
 
     public void updateStatus(Integer id);
 }
