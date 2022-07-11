@@ -11,6 +11,6 @@ public interface ItemService extends IService<Item> {
     public List<Item> searchItem(String keyword);
 
 
-    public List<Item> getItemList();
+    public List<Item> getItemList(int pageNum, int pageSize);
 
 }

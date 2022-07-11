@@ -24,9 +24,6 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
 
-    @Autowired
-    private UserService userService;
-
     @PostMapping("/add")
     public String addComment(@RequestBody Map map, HttpServletRequest httpServletRequest) throws Exception {
         Integer itemID = (Integer) map.get("itemID");

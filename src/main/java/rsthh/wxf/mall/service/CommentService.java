@@ -6,5 +6,5 @@ import rsthh.wxf.mall.po.Comment;
 import java.util.List;
 
 public interface CommentService extends IService<Comment> {
-    public List<Comment> getItemComments(Integer id);
+    public List<Comment> getItemComments(Integer id, int pageNum, int pageSize);
 }

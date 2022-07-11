@@ -2,14 +2,19 @@ package rsthh.wxf.mall.filter;
 
 import com.alibaba.fastjson.JSONObject;
 import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.github.pagehelper.util.StringUtil;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.web.filter.authc.AuthenticatingFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.SetOperations;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 import rsthh.wxf.mall.po.Token;
 
 import rsthh.wxf.mall.service.UserService;
@@ -17,22 +22,21 @@ import rsthh.wxf.mall.utils.Consts;
 import rsthh.wxf.mall.utils.JwtUtil;
 import rsthh.wxf.mall.utils.ThreadLocalUtil;
 
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import javax.annotation.Resource;
+import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-
+@Component
 public class AuthFilter extends AuthenticatingFilter {
 
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private RedisTemplate redisTemplate;//将token保存到redis
+    @Resource
+    private RedisTemplate<String,String> redisTemplate;//将token保存到redis
 
 
     @Override
@@ -85,24 +89,28 @@ public class AuthFilter extends AuthenticatingFilter {
                 return false;
             }
 
-        }catch (JWTDecodeException e){
+        }catch (JWTDecodeException | SignatureVerificationException e ){
             response.setStatus(1);
             response.getWriter().print("无效的令牌");
+            System.out.println("....");
             return false;
         }
-        SetOperations<String, String> set = redisTemplate.opsForSet();
-        if(set.isMember("blackList", tokenStr)){
+        System.out.println(redisTemplate);
+        //登出黑名单
+        if(redisTemplate.opsForSet().isMember("blackList", tokenStr)){
             response.setStatus(1);
             response.getWriter().print("无效的令牌");
             return false;
         }
         boolean result = executeLogin(request, response);
+        //续签token
         if(System.currentTimeMillis()-JwtUtil.getTimeByToken(tokenStr).getTime() < Consts.expire / 2){
             redisTemplate.delete("token");
             int userId = JwtUtil.getIDByToken(tokenStr);
             String token = JwtUtil.getToken(userId);
             redisTemplate.opsForValue().set(token, userId + "", 7, TimeUnit.DAYS);
         }
+        //用户信息存入threadLocal
         if(ThreadLocalUtil.getUser()==null)ThreadLocalUtil.setUser(userService.getById(JwtUtil.getIDByToken(tokenStr)));
         return result;
     }

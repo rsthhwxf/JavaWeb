@@ -29,21 +29,39 @@ public class ShiroConfig {
         role： 拥有某个角色权限
     */
 
+    //创建realm对象，需要自定义类
     @Bean
-    public ShiroFilterFactoryBean getShiroFilterFactoryBean(@Qualifier("getDefaultWebSecurityManager") DefaultWebSecurityManager defaultWebSecurityManager) {
+    public UserRealm userRealm() {
+        return new UserRealm();
+    }
+
+    //DefaultWebSecurityManager
+    @Bean
+    public DefaultWebSecurityManager getDefaultWebSecurityManager(@Qualifier("userRealm") UserRealm userRealm) {
+        DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
+
+        // 关联userRealm
+        securityManager.setRealm(userRealm);
+        return securityManager;
+    }
+
+
+
+    @Bean
+    public ShiroFilterFactoryBean getShiroFilterFactoryBean
+            (@Qualifier("auth") AuthFilter authFilter,
+             @Qualifier("getDefaultWebSecurityManager") DefaultWebSecurityManager defaultWebSecurityManager) {
         ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
         // 设置安全管理器
         bean.setSecurityManager(defaultWebSecurityManager);
 
         //设置shiro的内置过滤器
         HashMap<String, Filter> filters = new HashMap<>();
-        filters.put("auth", new AuthFilter());
+        filters.put("auth", authFilter);
         bean.setFilters(filters);
 
-        Map<String, String> filterMap = new LinkedHashMap<>();
         //拦截
-        //filterMap.put("/user/login","anon");
-        //filterMap.put("/user/register","anon");
+        Map<String, String> filterMap = new LinkedHashMap<>();
         filterMap.put("/**", "auth");
 
         //授权，正常情况下，没有授权会跳转到为授权页面
@@ -55,15 +73,9 @@ public class ShiroConfig {
         return bean;
     }
 
-    //DefaultWebSecurityManager
-
     @Bean
-    public DefaultWebSecurityManager getDefaultWebSecurityManager(@Qualifier("userRealm") UserRealm userRealm) {
-        DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-
-        // 关联userRealm
-        securityManager.setRealm(userRealm);
-        return securityManager;
+    public AuthFilter auth(){
+        return new AuthFilter();
     }
 
     @Bean
@@ -78,10 +90,6 @@ public class ShiroConfig {
         return advisor;
     }
 
-    //创建realm对象，需要自定义类
-    @Bean
-    public UserRealm userRealm() {
-        return new UserRealm();
-    }
+
 
 }

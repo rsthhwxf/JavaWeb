@@ -1,6 +1,7 @@
 package rsthh.wxf.mall.controller;
 
 
+import com.github.pagehelper.PageInfo;
 import rsthh.wxf.mall.po.*;
 import rsthh.wxf.mall.service.*;
 import rsthh.wxf.mall.utils.*;
@@ -39,6 +40,8 @@ public class ItemController {
     public String itemInfo(@RequestBody Map map){
         Map returnData = new HashMap();
         Integer itemID = (Integer) map.get("itemID");
+        int pageNum=(int)map.get("CommentPageNum");
+        int pageSize=(int)map.get("CommentPageSize");
         ItemDetail itemDetail = itemDetailService.getById(itemID);
         if (itemDetail == null) {
             returnData.put("status", 1);
@@ -46,7 +49,7 @@ public class ItemController {
             returnData.put("data", "");
             return JsonUtil.toJson(returnData);
         }
-        itemDetail.setComments(commentService.getItemComments(itemID));
+        itemDetail.setComments(commentService.getItemComments(itemID,pageNum,pageSize));
         returnData.put("status", 0);
         returnData.put("msg", "成功!");
         returnData.put("data", itemDetail);
@@ -65,8 +68,10 @@ public class ItemController {
     }
 
     @GetMapping("/list")//有待分页
-    public String itemList(){
-        List<Item> itemList = itemService.getItemList();
+    public String itemList(@RequestBody Map map){
+        int pageNum=(int)map.get("pageNum");
+        int pageSize=(int)map.get("pageSize");
+        List<Item> itemList = itemService.getItemList(pageNum,pageSize);
         Map returnData = new HashMap();
         returnData.put("status", 0);
         returnData.put("msg", "成功!");
