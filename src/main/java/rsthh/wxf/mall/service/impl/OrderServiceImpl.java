@@ -20,9 +20,9 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, Orders> implements O
     public List<Orders> getOrderByUserId(Integer id, int pageNum, int pageSize) {
 //        System.out.println(pageNum+pageSize);
         PageHelper.startPage(pageNum,pageSize);
+        long l = System.currentTimeMillis();
         List<Orders> list = this.baseMapper.selectList(new QueryWrapper<Orders>().eq("user_id",id));
-        System.out.println(list);
-        System.out.println("type"+ list.getClass());
+        System.out.println("消耗时间" + (System.currentTimeMillis()-l));
         PageInfo<Orders> pageInfo = new PageInfo<>(list);
         return pageInfo.getList();
     }

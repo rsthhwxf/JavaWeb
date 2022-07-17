@@ -7,6 +7,8 @@ import rsthh.wxf.mall.service.*;
 import rsthh.wxf.mall.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import rsthh.wxf.mall.vo.SearchParam;
+import rsthh.wxf.mall.vo.SearchResult;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -57,14 +59,9 @@ public class ItemController {
     }
 
     @PostMapping("/search")//有待es
-    public String itemSearch(@RequestBody Map map){
-        Map returnData = new HashMap();
-        String keyword = (String) map.get("keyword");
-        List<Item> itemList = itemService.searchItem(keyword);
-        returnData.put("status", 0);
-        returnData.put("msg", "成功!");
-        returnData.put("data", itemList);
-        return JsonUtil.toJson(returnData);
+    public String itemSearch(@RequestBody SearchParam searchParam){
+        SearchResult itemList = itemService.searchItem(searchParam);
+        return DataEcho.NoDataSuccess();
     }
 
     @GetMapping("/list")//有待分页
